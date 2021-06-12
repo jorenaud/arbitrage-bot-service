@@ -94,10 +94,10 @@ DATABASES = {
     # }
     'default': {'HOST': 'localhost',
                 'PORT': '3306',
-                'NAME': 'binance',
+                'NAME': '',
                 'ENGINE': 'django.db.backends.mysql',
-                'USER': 'henry',
-                'PASSWORD': 'master'}
+                'USER': '',
+                'PASSWORD': ''}
 }
 
 # Password validation
