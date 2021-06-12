@@ -1,0 +1,635 @@
+{% load staticfiles %}
+
+<!-- x-editor CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/editor/select2.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/datetimepicker.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/bootstrap-editable.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/x-editor-style.css" %}">
+
+<!-- select2 CSS
+	============================================ -->
+<link rel="stylesheet" href="{% static "css/select2/select2.min.css" %}">
+
+<!-- normalize CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-table.css" %}">
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-editable.css" %}">
+
+<style>
+
+.amcharts-chart-div a {display:none !important;}
+
+
+
+div.dataTables_length select {
+    background-color: #2b2b2b;
+}
+div.dataTables_length select option {
+    background-color: transparent;
+}
+
+div.dataTables_wrapper a.paginate_button {
+    padding: 2px;
+}
+table.dataTable {
+	clear: both;
+	margin-top: 6px !important;
+	margin-bottom: 6px !important;
+	max-width: none !important;
+	border-collapse: separate !important
+}
+
+table.dataTable td,
+table.dataTable th {
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box
+}
+
+table.dataTable td.dataTables_empty,
+table.dataTable th.dataTables_empty {
+	text-align: center
+}
+
+table.dataTable.nowrap th,
+table.dataTable.nowrap td {
+	white-space: nowrap
+}
+
+div.dataTables_wrapper div.dataTables_length {
+    float: left;
+    display: inline;
+}
+
+div.dataTables_wrapper div.dataTables_length label {
+	text-align: left;
+	white-space: nowrap;
+}
+
+div.dataTables_wrapper div.dataTables_length select {
+	width: 75px;
+	display: inline-block
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+	text-align: right
+}
+
+div.dataTables_wrapper div.dataTables_filter label {
+	white-space: nowrap;
+	text-align: left
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+	margin-left: 0.5em;
+	display: inline-block;
+	width: auto
+}
+
+div.dataTables_wrapper div.dataTables_info {
+	padding-top: 0.85em;
+	white-space: nowrap
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+	margin: 0;
+	white-space: nowrap;
+	text-align: right
+}
+
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+	margin: 2px 0;
+	white-space: nowrap;
+	justify-content: flex-end
+}
+
+div.dataTables_wrapper div.dataTables_processing {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 200px;
+	margin-left: -100px;
+	margin-top: -26px;
+	text-align: center;
+	padding: 1em 0
+}
+
+table.dataTable thead>tr>th.sorting_asc,
+table.dataTable thead>tr>th.sorting_desc,
+table.dataTable thead>tr>th.sorting,
+table.dataTable thead>tr>td.sorting_asc,
+table.dataTable thead>tr>td.sorting_desc,
+table.dataTable thead>tr>td.sorting {
+	padding-right: 30px
+}
+
+table.dataTable thead>tr>th:active,
+table.dataTable thead>tr>td:active {
+	outline: none
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+	cursor: pointer;
+	position: relative
+}
+
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before,
+table.dataTable thead .sorting_desc_disabled:after {
+	position: absolute;
+	bottom: 0.9em;
+	display: block;
+	opacity: 0.3
+}
+
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc_disabled:before {
+	right: 1em;
+	content: "\2191"
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:after {
+	right: 0.5em;
+	content: "\2193"
+}
+
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_desc:after {
+	opacity: 1
+}
+
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc_disabled:after {
+	opacity: 0
+}
+
+div.dataTables_scrollHead table.dataTable {
+	margin-bottom: 0 !important
+}
+
+div.dataTables_scrollBody table {
+	border-top: none;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important
+}
+
+div.dataTables_scrollBody table thead .sorting:after,
+div.dataTables_scrollBody table thead .sorting_asc:after,
+div.dataTables_scrollBody table thead .sorting_desc:after {
+	display: none
+}
+
+div.dataTables_scrollBody table tbody tr:first-child th,
+div.dataTables_scrollBody table tbody tr:first-child td {
+	border-top: none
+}
+
+div.dataTables_scrollFoot>.dataTables_scrollFootInner {
+	box-sizing: content-box
+}
+
+div.dataTables_scrollFoot>.dataTables_scrollFootInner>table {
+	margin-top: 0 !important;
+	border-top: none
+}
+
+
+table.dataTable.table-sm>thead>tr>th {
+	padding-right: 20px
+}
+
+table.dataTable.table-sm .sorting:before,
+table.dataTable.table-sm .sorting_asc:before,
+table.dataTable.table-sm .sorting_desc:before {
+	top: 5px;
+	right: 0.85em
+}
+
+table.dataTable.table-sm .sorting:after,
+table.dataTable.table-sm .sorting_asc:after,
+table.dataTable.table-sm .sorting_desc:after {
+	top: 5px
+}
+
+table.table-bordered.dataTable th,
+table.table-bordered.dataTable td {
+	border-left-width: 0
+}
+
+table.table-bordered.dataTable th:last-child,
+table.table-bordered.dataTable th:last-child,
+table.table-bordered.dataTable td:last-child,
+table.table-bordered.dataTable td:last-child {
+	border-right-width: 0
+}
+
+table.table-bordered.dataTable tbody th,
+table.table-bordered.dataTable tbody td {
+	border-bottom-width: 0
+}
+
+div.dataTables_scrollHead table.table-bordered {
+	border-bottom-width: 0
+}
+
+div.table-responsive>div.dataTables_wrapper>div.row {
+	margin: 0
+}
+
+div.table-responsive>div.dataTables_wrapper>div.row>div[class^="col-"]:first-child {
+	padding-left: 0
+}
+
+div.table-responsive>div.dataTables_wrapper>div.row>div[class^="col-"]:last-child {
+	padding-right: 0
+}
+
+
+</style>
+
+
+
+<div class="">
+    <div class="col-md-12">
+        <div class="row" style="margin:8px 0px">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                          <h1>Daily Profits Histogram<span class="table-project-n"> </span></h1>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div id="dashboard3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                          <h1>Traders Online Status<span class="table-project-n"> </span></h1>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div id="dashboard4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="data-table-area mg-tb-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="sparkline13-list">
+                        <div class="sparkline13-hd">
+                            <div class="main-sparkline13-hd">
+    {#                            <h1>Access <span class="table-project-n">History List</span></h1>#}
+                            </div>
+                        </div>
+                        <div class="sparkline13-graph">
+                            <div class="datatable-dashv1-list custom-datatable-overright">
+                                <div id="toolbar" class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-control" style="width: 100%; border: none; font-size: 20px">Trading News</label>
+                                    </div>
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-2" align="right">
+                                        <input class="form-control" style="width: 170px;" placeholder="Search">
+                                    </div>
+                                </div>
+                                <table id="news_table" class="table-bordered" style="margin-top: 10px; width: 100%">
+                                    <thead>
+                                    <tr style="height: 40px; background-color: black">
+                                        <th style="text-align:center;width: 2%">ID</th>
+                                        <th style="text-align:center;width: 2%">Name</th>
+                                        <th style="text-align:center;width: 2%">Date</th>
+                                        <th style="text-align:center;width: 6%">Description</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="data in news_data" style="height: 40px;">
+                                            <td style="text-align:center;">[[ data.id ]]</td>
+                                            <td style="text-align:center;">[[ data.name ]]</td>
+                                            <td style="text-align:center;">[[ data.date ]]</td>
+                                            <td style="text-align:center;">[[ data.description ]]</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static "js/dashboard.js" %}"></script>
+
+
+<style>
+#dashboard3 {
+  width: 100%;
+  height: 400px;
+}
+</style>
+
+<script>
+
+function get_json_value(time, array)
+{
+    var i;
+
+    for (i = 0; i < array.length; i++)
+    {
+        if (array[i].time == time)
+        {
+            return array[i].value;
+        }
+
+    }
+    return null;
+}
+
+function get_dailyvalue(time)
+{
+    {% for data in dailyData %}
+        //alert(("{{ data.time }}" - time).toString());
+        if ("{{ data.time }}" == time)
+        {
+            return {{ data.value }};
+        }
+    {% endfor %}
+    return null;
+}
+
+
+function find_zero()
+{
+    {% for data in dailyData %}
+        if ("{{ data.value }}" < 0)
+            return true;
+    {% endfor %}
+    return false;
+}
+
+
+
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_dark);
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var dailychart = am4core.create("dashboard3", am4charts.XYChart);
+dailychart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+dailychart.scrollbarX = new am4core.Scrollbar();
+
+var daily = [];
+
+for(let i = 0; i < 40; i++){
+  let date = new Date();
+  date.setHours(0,0,0,0);
+
+  date.setDate(i);
+  var timezoneOffset = date.getTimezoneOffset();
+  var temp = date.getTime();
+  timeoffset = {{ servertimezoneoffset }} - timezoneOffset * 60 * 1000;
+
+  daily.push({date:date, value: get_dailyvalue(temp + timeoffset)});
+}
+
+dailychart.data = daily;
+
+
+// Create axes
+var dateAxis = dailychart.xAxes.push(new am4charts.DateAxis());
+dateAxis.renderer.minGridDistance = 60;
+
+
+var valueAxis = dailychart.yAxes.push(new am4charts.ValueAxis());
+
+if (find_zero() == false)
+{
+    valueAxis.min = 0;
+}
+
+valueAxis.renderer.minGridDistance = 30;
+valueAxis.renderer.baseGrid.disabled = true;
+
+var series = dailychart.series.push(new am4charts.ColumnSeries());
+series.dataFields.dateX = "date";
+series.dataFields.valueY = "value";
+series.tooltipText = "{value}";
+series.tooltip.pointerOrientation = "vertical";
+
+series.columns.template.tooltipText = "{valueY.value}";
+series.columns.template.tooltipY = 0;
+series.columns.template.strokeOpacity = 0;
+
+
+dailychart.cursor = new am4charts.XYCursor();
+dailychart.cursor.snapToSeries = series;
+dailychart.cursor.xAxis = dateAxis;
+
+// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+series.columns.template.adapter.add("fill", function(fill, target) {
+  return dailychart.colors.getIndex(target.dataItem.index);
+});
+
+var dailyinterval;
+function startDailyInterval() {
+    dailyinterval = setInterval(function() {
+        $.ajax({
+            type: "GET",
+            url: "get_daily_profit/",
+            success: function(result){
+            result = JSON.parse(result);
+            var dailytemp = [];
+            var minVal = 99999999999999999;
+
+            for(let i = 0; i < 30; i++){
+                let date = new Date();
+                date.setHours(0,0,0,0);
+                date.setDate(i);
+
+                var timezoneOffset = date.getTimezoneOffset();
+                var temp = date.getTime();
+                timeoffset = {{ servertimezoneoffset }} - timezoneOffset * 60 * 1000;
+
+                var value = get_json_value(temp + timeoffset, result);
+                if (value != null && minVal >= value)
+                  minVal = value;
+
+                dailytemp.push({date:date, value: value});
+            }
+            dailychart.data = dailytemp;
+            if (minVal <= 0)
+                valueAxis.min = minVal - 100;
+            else valueAxis.min = 0;
+
+      }});
+
+    }, 1000 * 24 * 3600);
+}
+
+startDailyInterval();
+
+
+}); // end am4core.ready()
+</script>
+
+
+<style>
+body { background-color: #30303d; color: #fff; }
+#dashboard4 {
+  width: 100%;
+  height: 400px;
+}
+
+</style>
+
+<!-- Chart code -->
+<script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_dark);
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+/**
+ * Define data for each year
+ */
+
+// Create chart instance
+var piechart = am4core.create("dashboard4", am4charts.PieChart);
+
+// Add data
+piechart.data = [ {
+  "traders": "login(*)",
+  "litres": {{ webCount }}
+}, {
+  "traders": "logout(*)",
+  "litres": {{ logoutCount }}
+}, {
+  "traders": "No Email(*)",
+  "litres": {{ noEmail }}
+}];
+
+
+// Add label
+piechart.innerRadius = 100;
+var label = piechart.seriesContainer.createChild(am4core.Label);
+label.text = {{ tradersCount }};
+label.horizontalCenter = "middle";
+label.verticalCenter = "middle";
+label.fontSize = 50;
+
+// Add and configure Series
+var pieSeries = piechart.series.push(new am4charts.PieSeries());
+pieSeries.dataFields.value = "litres";
+pieSeries.dataFields.category = "traders";
+pieSeries.labels.template.paddingTop = 0;
+pieSeries.labels.template.paddingBottom = 0;
+
+var traderinterval;
+function startTraderInterval() {
+    traderinterval = setInterval(function() {
+        $.ajax({
+            type: "GET",
+            url: "get_trader_status/",
+            success: function(result){
+            result = JSON.parse(result);
+            var tradertemp = [ {
+                  "traders": "login(*)",
+                  "litres": result[1]
+                }, {
+                  "traders": "logout(*)",
+                  "litres": result[2]
+                }, {
+                  "traders": "No Email(*)",
+                  "litres": result[3]
+                }];
+            piechart.data = tradertemp;
+
+            var label = piechart.seriesContainer.createChild(am4core.Label);
+            label.text = result[0];
+            label.horizontalCenter = "middle";
+            label.verticalCenter = "middle";
+            label.fontSize = 50;
+      }});
+
+    }, 6000);
+}
+
+startTraderInterval();
+
+}); // end am4core.ready()
+
+
+var news_vue;
+var news_data;
+
+
+function refresh_realtraing_news(flag=0) {
+setTimeout(function () {
+    // Do Something Here
+    $.ajax({
+            type: "GET",
+            url: "get_trading_news/",
+            success: function(result){
+            result = JSON.parse(result);
+            var i;
+            if (flag != 0)
+                news_data = new Array();
+            else
+                news_vue.news_data = new Array();
+            var index = 0;
+            for (i = result.length - 1; i >= 0; i--) {
+                if (flag != 0)
+                    news_data[index++] = result[i];
+                else
+                    news_vue.news_data[index++] = result[i]
+            }
+      }});
+
+    refresh_realtraing_news();
+}, 10000);
+
+}
+
+
+$(document).ready(function () {
+    refresh_realtraing_news(1);
+    news_vue = new Vue({
+        delimiters: ['[[', ']]'],
+
+        el: "#news_table",
+
+        data: {
+            news_data: news_data
+        },
+    });
+});
+</script>

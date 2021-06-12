@@ -1,0 +1,127 @@
+{% load staticfiles %}
+
+<!-- x-editor CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/editor/select2.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/datetimepicker.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/bootstrap-editable.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/x-editor-style.css" %}">
+<!-- normalize CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-table.css" %}">
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-editable.css" %}">
+
+<div class="data-table-area mg-tb-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+{#                            <h1>Access <span class="table-project-n">History List</span></h1>#}
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div id="toolbar">
+                                <select class="form-control">
+                                    <option value="">Export Basic</option>
+                                    <option value="all">Export All</option>
+                                    <option value="selected">Export Selected</option>
+                                </select>
+                            </div>
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                   data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                   data-key-events="true" data-show-toggle="true" data-resizable="true"
+                                   data-cookie="true"
+                                   data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                   data-toolbar="#toolbar">
+                                <thead>
+                                <tr>
+                                    <th data-field="state" data-checkbox="true"></th>
+                                    {% for data in headerdata %}
+                                        <th>{{ data.name }}</th>
+                                    {% endfor %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for data in bodydata %}
+                                    <tr id="row_{{ data.uid }}">
+                                        <td></td>
+                                        <td>{{ data.id }}</td>
+                                        <td>{{ data.username }}</td>
+                                        <td>{{ data.type }}</td>
+                                        <td>{{ data.time }}</td>
+                                        <td>{{ data.ipaddr }}</td>
+                                        <td>{{ data.serverName }}</td>
+                                        <td>{{ data.tradeType }}</td>
+                                        <td>
+                                            {% if userlevel < 2 %}
+                                            <a href="#" data-toggle="tooltip" title="Delete" class=""
+                                                    onclick="on_delete_access({{ data.uid }})"><i
+                                                    class="fa fa-trash-o" aria-hidden="true" style="color: white"></i></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static "js/access.js" %}"></script>
+
+<!-- jquery
+		============================================ -->
+{#<script src="{% static "js/vendor/jquery-1.11.3.min.js" %}"></script>#}
+<!-- bootstrap JS
+    ============================================ -->
+{#<script src="{% static "js/bootstrap.min.js" %}"></script>#}
+
+<!-- data table JS
+    ============================================ -->
+{#<script src="{% static "js/data-table/bootstrap-table.js" %}"></script>#}
+{#<script src="{% static "js/data-table/tableExport.js" %}"></script>#}
+{#<script src="{% static "js/data-table/data-table-active.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-editable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-editable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-resizable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/colResizable-1.5.source.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-export.js" %}"></script>#}
+<!--  editable JS
+    ============================================ -->
+{#<script src="{% static "js/editable/jquery.mockjax.js" %}"></script>#}
+{#<script src="{% static "js/editable/mock-active.js" %}"></script>#}
+{#<script src="{% static "js/editable/select2.js" %}"></script>#}
+{#<script src="{% static "js/editable/moment.min.js" %}"></script>#}
+{#<script src="{% static "js/editable/bootstrap-datetimepicker.js" %}"></script>#}
+{#<script src="{% static "js/editable/bootstrap-editable.js" %}"></script>#}
+{#<script src="{% static "js/editable/xediable-active.js" %}"></script>#}
+
+<!-- bootstrap JS
+    ============================================ -->
+{#<script src="{% static "js/bootstrap.min.js" %}"></script>#}
+
+<script>
+    function on_delete_access(uid) {
+        var params = {
+            "id" : uid,
+        };
+    $.ajax({
+            type: "POST",
+            url: "on_delete_access/",
+            data: params,
+            success: function(){
+                    load_page_content("access_view/");
+                },
+                error: function (res) {
+                    alert(res['responseText']);
+                },
+    });
+    }
+</script>

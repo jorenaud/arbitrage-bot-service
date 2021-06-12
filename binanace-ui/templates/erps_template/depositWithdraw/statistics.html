@@ -1,0 +1,171 @@
+
+
+{% load staticfiles %}
+
+<!-- x-editor CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/editor/select2.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/datetimepicker.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/bootstrap-editable.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/x-editor-style.css" %}">
+<!-- normalize CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-table.css" %}">
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-editable.css" %}">
+
+<div class="data-table-area mg-tb-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+{#                            <h1>Access <span class="table-project-n">History List</span></h1>#}
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div id="toolbar" class="row">
+                                <div class="col-md-10">
+                                    <select id="dwsTraderList" class="form-control" style="width:20%; float:left;" onchange="refresh_depowithstatistics_data()">
+                                        <option value="all">All Traders</option>
+                                        <option value="total">Total Statistics</option>
+                                        {% for user in userList %}
+                                            <option value="{{ user.userId }}">{{ user.userEmail }} ({{ user.userId }})</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <input class="form-control" style="width: 170px;" placeholder="Search">
+                                </div>
+                            </div>
+                            <table id="depowithstatisticstable" class="table-bordered" style="margin-top: 10px; width: 100%">
+                                <thead>
+                                <tr style="height: 40px; background-color: black">
+                                    <th style="text-align:center;width: 2%"></th>
+                                    <th style="text-align:center;width: 2%">ID</th>
+                                    <th style="text-align:center;width: 4%">User ID</th>
+                                    <th style="text-align:center;width: 4%">First Name</th>
+                                    <th style="text-align:center;width: 4%">Last Name</th>
+                                    <th style="text-align:center;width: 4%">Email</th>
+                                    <th style="text-align:center;width: 6%">Total Deposit</th>
+                                    <th style="text-align:center;width: 6%">Total Withdraw</th>
+                                    <th style="text-align:center;width: 6%">De. - Wi.</th>
+                                    <th style="text-align:center;width: 6%">Trader's Balance</th>
+                                    <th style="text-align:center;width: 6%">Broker's Profit</th>
+                                    <th style="text-align:center;width: 4%">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="data in body_data" style="height: 40px;">
+                                        <td style="text-align:center;"></td>
+                                        <td style="text-align:center;">[[ data.id ]]</td>
+                                        <td style="text-align:center;">[[ data.userId ]]</td>
+                                        <td style="text-align:center;">[[ data.userFirstName ]]</td>
+                                        <td style="text-align:center;">[[ data.userLastName ]]</td>
+                                        <td style="text-align:center;">[[ data.userEmail ]]</td>
+                                        <td style="text-align:center;">[[ data.totaldeposit ]]</td>
+                                        <td style="text-align:center;">[[ data.totalwithdraw ]]</td>
+                                        <td style="text-align:center;">[[ data.minute ]]</td>
+                                        <td style="text-align:center;">[[ data.balance ]]</td>
+                                        <td style="text-align:center;">[[ data.profit ]]</td>
+                                        <td style="text-align:center;">
+                                            <!--{% if userlevel < 2 %}
+                                            <a href="#" data-toggle="tooltip" title="Delete" class=""
+                                                    onclick="on_delete_access('[[ body_data.uid ]]', '[[ body_data.userId ]]')"><i
+                                                    class="fa fa-trash-o" aria-hidden="true" style="color: white"></i></a>
+                                            {% endif %}-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- jquery
+		============================================ -->
+{#<script src="{% static "js/vendor/jquery-1.11.3.min.js" %}"></script>#}
+<!-- bootstrap JS
+    ============================================ -->
+{#<script src="{% static "js/bootstrap.min.js" %}"></script>#}
+
+<!-- data table JS
+    ============================================ -->
+{#<script src="{% static "js/data-table/bootstrap-table.js" %}"></script>#}
+{#<script src="{% static "js/data-table/tableExport.js" %}"></script>#}
+{#<script src="{% static "js/data-table/data-table-active.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-editable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-editable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-resizable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/colResizable-1.5.source.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-export.js" %}"></script>#}
+<!--  editable JS
+    ============================================ -->
+{#<script src="{% static "js/editable/jquery.mockjax.js" %}"></script>#}
+{#<script src="{% static "js/editable/mock-active.js" %}"></script>#}
+{#<script src="{% static "js/editable/select2.js" %}"></script>#}
+{#<script src="{% static "js/editable/moment.min.js" %}"></script>#}
+{#<script src="{% static "js/editable/bootstrap-datetimepicker.js" %}"></script>#}
+{#<script src="{% static "js/editable/bootstrap-editable.js" %}"></script>#}
+{#<script src="{% static "js/editable/xediable-active.js" %}"></script>#}
+
+<!-- bootstrap JS
+    ============================================ -->
+{#<script src="{% static "js/bootstrap.min.js" %}"></script>#}
+
+
+
+<script>
+var depowithstatics_vue;
+var depowithstaticsdata = new Array();
+
+
+function refresh_depowithstatistics_data() {
+    // Do Something Here
+    var params = {
+        "trader" : $("#dwsTraderList").val(),
+     };
+    $.ajax({
+            type: "GET",
+            url: "/broker/deposwith/get_statistics/",
+            data: params,
+            success: function(result){
+            result = JSON.parse(result);
+            var i;
+            depowithstatics_vue.body_data = new Array();
+
+            for (i = 0; i < result.length; i++) {
+                depowithstatics_vue.body_data[i] = result[i];
+            }
+      }});
+}
+
+$(document).ready(function () {
+
+    {% for info in bodydata %}
+        depowithstaticsdata.push({"uid": "{{ info.uid }}", "id": "{{ info.id }}", "userId": "{{ info.userId }}",
+                            "userFirstName": "{{ info.userFirstName }}", "userLastName": "{{ info.userLastName }}", "userEmail": "{{ info.userEmail }}",
+                          "totaldeposit": "{{ info.totaldeposit }}", "totalwithdraw": "{{ info.totalwithdraw }}",
+                          "minute": "{{ info.minute }}", "balance": "{{ info.balance }}", "profit": "{{ info.profit }}"});
+    {% endfor %}
+
+
+    depowithstatics_vue = new Vue({
+        delimiters: ['[[', ']]'],
+
+        el: "#depowithstatisticstable",
+
+        data: {
+            body_data: depowithstaticsdata,
+            user_level: {{ userlevel }},
+        },
+    });
+});
+</script>

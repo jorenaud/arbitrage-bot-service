@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html class="no-js" prefix="og: http://ogp.me/ns#"  lang="en-IN">
+{% load staticfiles  %}
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Startup - Business Free Bootstrap Template</title>
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+
+        <meta name="description" content="We craft awesome Bootstrap themes for free and share selected resources for web designer &amp; developer. Download Free HTML themes for Bootstrap" /> 
+        <link href="{% static 'customer/img/startup_logo_96dp.png' %}" rel="apple-touch-icon" sizes="96x96">
+        <link href="{% static 'customer/img/startup_logo_96dp.png' %}" rel="icon" sizes="96x96" type="image/png">
+        <link href="{% static 'customer/img/startup_logo_32dp.png' %}" rel="icon" sizes="32x32" type="image/png">
+        <meta content="{% static 'customer/img/startup_logo_96dp.png' %}" name="msapplication-TileImage">
+        
+        <meta property="og:url" content="https://www.boostraptheme.com/demo/index.html" />
+        <meta property="og:title" content="Startup - Business Free Bootstrap Template" />
+        <meta property="og:locale" content="en_IN" /> 
+        <meta property="og:site_name" content="Boostraptheme" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="BoostrapTheme" />
+        <meta name="twitter:creator" content="BoostrapTheme" />
+
+        <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'customer/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'customer/css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'customer/css/app.css' %}">
+        <link rel="stylesheet" href="{% static 'customer/css/style.css' %}">
+
+        <script src="{% static 'customer/js/jquery.min.js' %}"></script>
+        <script> $(window).on('load', function(){ $(".loader").fadeOut(2000); }); </script>
+    </head>
+
+    <body>
+
+        <div class="loader"></div>
+        <!-- NAVIGATION 
+            =================-->
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" >
+              <div class="container-fluid">
+                <a class="navbar-brand js-scroll-trigger" style="padding-top: 0px !important;padding-bottom:  0px !important;"  href="index.html"><img src="{% static 'customer/img/logo.png' %}" style="max-height: 60px;" alt="" class="img-fluid"></a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                  Menu
+                  <i class="fa fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                  <ul class="navbar-nav text-uppercase ml-auto">
+
+                      {% for menu in menudata %}
+                        {% if menu.parent_id == 0 %}
+                            {% if menu.has_child == 0 %}
+                                <li class="nav-item">
+                                    <a class="nav-link js-scroll-trigger" href="{{ menu.url }}">{{ menu.name }}</a>
+                                </li>
+                            {% else %}
+                                <li class="menu-has-children"><a href="{{ menu.url }}">{{ menu.name }}</a>
+                                <ul>
+                                    {% for submenu in menudata %}
+                                        {% if submenu.parent == menu.name %}
+                                            <li><a href="{{ submenu.url }}">{{ submenu.name }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                  </ul>
+                </div>
+              </div>
+            </nav>
+
+        <!-- HEADER
+            =================-->
+                <header id="conent">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="margin-top: -300px">
+                      <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                      </ol>
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <div class="img-caption-hide"></div>
+                          <img class="d-block w-100 img-fluid" src="{% static 'customer/img/banner-bg-1.jpg' %}" alt="First slide" style="height: 10%">
+                        </div>
+                        <div class="carousel-item">
+                          <div class="img-caption-hide"></div>
+                          <img class="d-block w-100" src="{% static 'customer/img/banner-bg-2.jpg' %}" alt="Second slide" style="height: 10%">
+                        </div>
+                      </div>
+                      <a class="carousel-control-prev carousel-arrs" href="#carouselExampleIndicators" role="button" data-slide="prev"  style="margin-top: 300px">
+                        <span class="arrow-sliders"><i class="fa fa-angle-left"></i></span>
+                      </a>
+                      <a class="carousel-control-next carousel-arrs" href="#carouselExampleIndicators" role="button" data-slide="next" style="margin-top: 300px">
+                         <span class="arrow-sliders"><i class="fa fa-angle-right"></i></span>
+                      </a>
+                    </div>
+                  </header>
+
+
+            <section id="user_home" class="about">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-9 row">
+                        <div class="col-md-auto"><h6>{{ trader.userFirstName }} {{ trader.userLastName }} Account Balance</h6></div>
+                        <div class="col-md-auto" style="padding-right: 30px">
+                            <select class="select" id="balance" name="balance" style="width: 130px; height: 40px; margin-top: -5px;">
+                                <option value="usd">USD {{ trader.userBalanceUSD }}</option><option value="eur">EUR {{ trader.userBalanceEUR }}</option>
+                                <option value="gbp">GBP {{ trader.userBalanceGBP }}</option><option value="jpy">JPY {{ trader.userBalanceJPY }}</option>
+                                <option value="aud">AUD {{ trader.userBalanceAUD }}</option><option value="rmb">RMB {{ trader.userBalanceRMB }}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6"><button type="button" class="text--darkgray" data-financial="refresh" style="border-color: #ffffff"><i class="fa fa-refresh" aria-hidden="true"></i></button></div>
+                    </div>
+                </div>
+                {% if trader.userIdentityProof == 0 %}
+                    <div class="row" style="padding-top: 50px !important;">
+                        <div class="col-md-3"></div>
+                        <div class="alert alert-warning" role="alert" style="border-color: #e88a05; width: 1000px; height: 250px">
+                            <h3 class="alert__header alert__header--icon" style="padding-top: 30px;">
+                                <i class="fa fa-warning alert__icon"></i>
+                                Your account is not validated
+                            </h3>
+                            <div class="alert__body collapse show" style="padding-top: 30px;">
+                                <p>Please note that in order to proceed you will need to first validate your account.</p><p>To validate your account please provide us with the necessary <strong>Proof of ID</strong> and <strong>Proof of Residency</strong> documents.</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-4" style="margin-top: 00px;">
+                                    <div class="button-div">
+                                        <input type="button" id="register" class="btn-dark" value="Validate Your Account" style="width: 300px; height: 40px !important; background-color: #f59e00; color: white; border: none;
+                                    font-size: 18px; font-style: inherit; font-weight: bold; height: 50px" onclick="user_register();">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 20px !important;">
+                        <div class="col-md-3"></div>
+                        <div class="alert alert-warning" role="alert" style="border-color: #e88a05; width: 1000px; height: 180px;">
+                            <h3 class="alert__header alert__header--icon" style="padding-top: 30px;">
+                                <i class="fa fa-warning alert__icon"></i>
+                                Welcome Bonus Status Not Activated
+                            </h3>
+                            <div class="alert__body collapse show" style="padding-top: 30px;">
+                                <p>Your Welcome Bonus status will be activated automatically as soon as you make your first deposit.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </section>
+            <section id="blog" class="blog">
+              <div class="container">
+                <div class="row wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-md-12 text-center">
+                        <div class="heading">
+                            <h1>Latest <span>News</span></h1>
+                            <div class="bord-bot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="blog-cont wow fadeInUp" data-wow-delay="0.3s">
+                      <img src="{% static 'customer/img/blog/blog-2.jpg' %}" alt="" class="img-fluid">
+                      <h5>Advertising has great significance as it is the only way of telling</h5>
+                      <p>People about your productPsychology Articles, introducing them what it is all about and how your product.</p>
+                      <a href="#">Read more <i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="blog-cont wow fadeInUp" data-wow-delay="0.6s">
+                      <img src="{% static 'customer/img/blog/blog-3.jpg' %}" alt="" class="img-fluid">
+                      <h5>There are few tips for the people who have a plan of low cost </h5>
+                      <p>Making a big investment is not always necessary. If you do not have such a great amount to invest.</p>
+                      <a href="#">Read more <i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="blog-cont wow fadeInUp" data-wow-delay="0.9s">
+                      <img src="{% static 'customer/img/blog/blog-4.jpg' %}" alt="" class="img-fluid">
+                      <h5>Scaling means higher volumes of work and more data to process</h5>
+                      <p>Is your team ready to take on this workload? Can they work under the stress and pressures that come.</p>
+                      <a href="#">Read more <i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+        <!-- CLIENTS
+            =================-->
+            <section id="client" class="client p-5">
+              <div class="container-fluid">
+                <div class="row wow animated bounceInLeft" data-wow-duration="1s" data-wow-delay=".5s">
+                    <div class="col-md-12">
+                        <div id="clients-list" class="owl-carousel owl-theme">
+                            <div class="client-item">
+                                <img src="{% static 'customer/img/clients/logo-1.jpg' %}" class="img-fluid" alt="client">
+                            </div>
+                            <div class="client-item">
+                                <img src="{% static 'customer/img/clients/logo-2.jpg' %}" class="img-fluid" alt="client">
+                            </div>
+                            <div class="client-item">
+                                <img src="{% static 'customer/img/clients/logo-3.jpg' %}" class="img-fluid" alt="client">
+                            </div>
+                            <div class="client-item">
+                                <img src="{% static 'customer/img/clients/logo-4.jpg' %}" class="img-fluid" alt="client">
+                            </div>
+                            <div class="client-item">
+                                <img src="{% static 'customer/img/clients/logo-5.jpg' %}" class="img-fluid" alt="client">
+                            </div>
+                            <div class="client-item">
+                                <img src="{% static 'customer/img/clients/logo-6.jpg' %}" class="img-fluid" alt="client">
+                            </div>
+                            <div class="client-item">
+                                <img src="{% static 'customer/img/clients/logo-7.jpg' %}" class="img-fluid" alt="client">
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </section>
+
+        <!-- FOOTER 
+            =================-->
+            <footer>
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="company-desc">
+                      <img src="{% static 'customer/img/logo.png' %}" alt="" class="img-fluid">
+                      <p>Startup traditional, alternative, or just plain creative Indian entrepreneurs want to know some of those ' basic rules'  finance success.</p>
+                      <address><i class="fa fa-map-marker"></i> T34 Ambila, Bangalore 342424, India </address>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="social">
+                      <h3>Social Corner</h3>
+                      <ul>
+                        <li><i class="fa fa-facebook"></i></li>
+                        <li><i class="fa fa-twitter"></i></li>
+                        <li><i class="fa fa-google-plus"></i></li>
+                        <li><i class="fa fa-youtube"></i></li>
+                      </ul>
+                      <div class="cont-info number">
+                        <i class="fa fa-phone"></i>
+                        <a href="tel:1234567890">(+91) 1234567890</a>
+                      </div>
+                      <div class="cont-info mail">
+                        <i class="fa fa-envelope-o"></i>
+                        <a href="mail@startup.com">mail@startup.com</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="latest-news">
+                      <h3>Latest News</h3>
+                      <img src="{% static 'customer/img/blog/blog-small-1.jpg' %}" alt="" class="img-fluid">
+                      <p>Lorem ipsum dolor sit amet, consectetur.</p>
+                      <small>12/06/2018</small>
+                    </div>
+                    <div class="latest-news">
+                      <img src="{% static 'customer/img/blog/blog-small-2.jpg' %}" alt="" class="img-fluid">
+                      <p>Lorem ipsum dolor sit amet, consectetur.</p>
+                      <small>12/06/2018</small>
+                    </div>
+                  </div>  
+                </div>
+              </div>
+              <div class="container-fluid footer-b text-center">
+                <small>Copyrights &copy; 2018 Design by <a href="https://boostraptheme.com/">Boostraptheme</a></small>
+              </div>
+            </footer>
+ 
+        <script src="{% static 'customer/js/popper.min.js' %}"></script>
+        <script src="{% static 'customer/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'customer/js/jquery.easing.min.js' %}"></script>
+        <script src="{% static 'customer/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'customer/js/wow.min.js' %}"></script>
+        <script src="{% static 'customer/js/app.js' %}"></script>
+    </body>
+</html>

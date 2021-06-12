@@ -1,0 +1,295 @@
+
+
+{% load staticfiles %}
+
+<!-- x-editor CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/editor/select2.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/datetimepicker.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/bootstrap-editable.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/x-editor-style.css" %}">
+<!-- normalize CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-table.css" %}">
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-editable.css" %}">
+
+<div class="data-table-area mg-tb-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+{#                            <h1>Access <span class="table-project-n">History List</span></h1>#}
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div id="toolbar" class="row">
+                                <div class="col-md-10">
+                                    <select id="dwTraderList" class="form-control" style="width:20%; float:left;" onchange="refresh_depowithhistory_data()">
+                                        <option value="all">All Traders</option>
+                                        {% for user in userList %}
+                                            <option value="{{ user.userId }}">{{ user.userEmail }} ({{ user.userId }})</option>
+                                        {% endfor %}
+                                    </select>
+                                    <select id="dwType" class="form-control" style="width:10%;float:left;" onchange="refresh_depowithhistory_data()">
+                                        <option value="all">All Types</option>
+                                        <option value="0">Deposit</option>
+                                        <option value="1">Withdraw</option>
+                                    </select>
+                                    <button id="add_record_button" type="button" data-toggle="modal" data-target="#add_record_modal"
+                                            class="form-control" style="width: 15%;">Add Record</button>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <input class="form-control" style="width: 170px;" placeholder="Search">
+                                </div>
+                            </div>
+                            <table id="depowithhistorytable" class="table-bordered" style="margin-top: 10px; width: 100%">
+                                <thead>
+                                <tr style="height: 40px; background-color: black">
+                                    <th style="text-align:center;width: 2%"></th>
+                                    <th style="text-align:center;width: 2%">ID</th>
+                                    <th style="text-align:center;width: 4%">User ID</th>
+                                    <th style="text-align:center;width: 4%">First Name</th>
+                                    <th style="text-align:center;width: 4%">Last Name</th>
+                                    <th style="text-align:center;width: 4%">Email</th>
+                                    <th style="text-align:center;width: 4%">Phone</th>
+                                    <th style="text-align:center;width: 6%">Currency</th>
+                                    <th style="text-align:center;width: 6%">Type</th>
+                                    <th style="text-align:center;width: 6%">Amount</th>
+                                    <th style="text-align:center;width: 6%">Update Date</th>
+                                    <th style="text-align:center;width: 6%">Balance</th>
+                                    <th style="text-align:center;width: 4%">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="data in body_data" style="height: 40px;">
+                                        <td style="text-align:center;"></td>
+                                        <td style="text-align:center;">[[ data.id ]]</td>
+                                        <td style="text-align:center;">[[ data.userId ]]</td>
+                                        <td style="text-align:center;">[[ data.userFirstName ]]</td>
+                                        <td style="text-align:center;">[[ data.userLastName ]]</td>
+                                        <td style="text-align:center;">[[ data.userEmail ]]</td>
+                                        <td style="text-align:center;">[[ data.userPhone ]]</td>
+                                        <td style="text-align:center;">[[ data.userAccountBased ]]</td>
+                                        <td style="text-align:center;">[[ data.type ]]</td>
+                                        <td style="text-align:center;">[[ data.amount ]]</td>
+                                        <td style="text-align:center;">[[ data.updateDate ]]</td>
+                                        <td style="text-align:center;">[[ data.balance ]]</td>
+                                        <td style="text-align:center;">
+                                            <!--{% if userlevel < 2 %}
+                                            <a href="#" data-toggle="tooltip" title="Delete" class=""
+                                                    onclick="on_delete_access('[[ body_data.uid ]]', '[[ body_data.userId ]]')"><i
+                                                    class="fa fa-trash-o" aria-hidden="true" style="color: white"></i></a>
+                                            {% endif %}-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="add_record_modal" class="modal" style="display: none;">
+    <div class="modal-backdrop" style="width: 50%; height: 50%; margin: auto; background: #303030;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="user-data m-b-30">
+                    <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>-->
+                    <div class="col-md-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="text-center custom-login" style="margin-top: 25px;">
+                            <h2>ADD RECORD DIALOG</h2>
+                        </div>
+                        <form action="#" id="add_record_form">
+                            <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <label>User Id</label>
+                                    <select v-model="userId" class="form-control" @change="onchangeUserId()">
+                                        {% for user in userList %}
+                                            <option value="{{ user.userId }}">{{ user.userId }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>First Name</label>
+                                    <input v-model="userFirstName" class="form-control" value="">
+                                </div>
+
+                                <div class="form-group col-lg-6">
+                                    <label>Last Name</label>
+                                    <input v-model="userLastName" class="form-control" value="">
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>User Email</label>
+                                    <input v-model="userEmail" class="form-control" value="">
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>User Phone</label>
+                                    <input v-model="userPhone" class="form-control" value="">
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Currency</label>
+                                    <select v-model="userAccountBased" class="form-control">
+                                        <option value="USD">USD</option>
+                                        <option value="EUR">EUR</option>
+                                        <option value="GBP">GBP</option>
+                                        <option value="CHF">CHF</option>
+                                        <option value="AUD">AUD</option>
+                                        <option value="JPY">JPY</option>
+                                        <option value="NZD">NZD</option>
+                                        <option value="SGD">SGD</option>
+                                        <option value="RUB">RUB</option>
+                                        <option value="CAD">CAD</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Type</label>
+                                    <select v-model="type" class="form-control">
+                                        <option value="0">Deposit</option>
+                                        <option value="1">Withdraw</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Amount</label>
+                                    <input v-model="amount" class="form-control" value="">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                                <div class="form-group col-lg-2">
+                                    <button class="form-control" @click="on_add_record()" data-dismiss="modal">Add</button>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <button class="form-control" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+var depowithhistory_vue;
+var depowithhistorydata = new Array();
+
+var add_record_vue;
+
+
+function refresh_depowithhistory_data() {
+    // Do Something Here
+    var params = {
+        "trader" : $("#dwTraderList").val(),
+        "type" : $("#dwType").val(),
+     };
+    $.ajax({
+            type: "GET",
+            url: "deposwith/get_history/",
+            data: params,
+            success: function(result){
+            result = JSON.parse(result);
+            var i;
+            depowithhistory_vue.body_data = new Array();
+
+            for (i = 0; i < result.length; i++) {
+                depowithhistory_vue.body_data[i] = result[i];
+            }
+      }});
+}
+
+$(document).ready(function () {
+
+    {% for info in bodydata %}
+        depowithhistorydata.push({"uid": "{{ info.uid }}", "id": "{{ info.id }}", "userId": "{{ info.userId }}",
+                            "userFirstName": "{{ info.userFirstName }}", "userLastName": "{{ info.userLastName }}", "userEmail": "{{ info.userEmail }}",
+                          "userPhone": "{{ info.userPhone }}", "userAccountBased": "{{ info.userAccountBased }}", "type": "{{ info.type }}",
+                          "amount": "{{ info.amount }}", "updateDate": "{{ info.updateDate }}", "balance": "{{ info.balance }}"});
+    {% endfor %}
+
+    var user_list = {};
+    {% for user in userList %}
+        user_list["{{ user.userId }}"] = {
+            "userFirstName": "{{ user.userFirstName }}",
+            "userLastName": "{{ user.userFirstName }}",
+            "userEmail": "{{ user.userEmail }}",
+            "userPhone": "{{ user.userPhone }}",
+            "userAccountBased": "{{ user.userAccountBased }}",
+        };
+    {% endfor %}
+
+    depowithhistory_vue = new Vue({
+        delimiters: ['[[', ']]'],
+
+        el: "#depowithhistorytable",
+
+        data: {
+            body_data: depowithhistorydata,
+            user_level: {{ userlevel }},
+        },
+    });
+
+    add_record_vue = new Vue({
+       delimiters: ['[[', ']]'],
+
+       el: "#add_record_modal",
+       data: {
+           userList: user_list,
+           userId: '',
+           userFirstName: '',
+           userEmail: '',
+           userPhone: '',
+           userAccountBased: '',
+           amount: 0,
+           type: 0,
+       },
+       methods: {
+           onchangeUserId: function() {
+               this.userFirstName = this.userList[this.userId]["userFirstName"];
+               this.userLastName = this.userList[this.userId]["userLastName"];
+               this.userEmail = this.userList[this.userId]["userEmail"];
+               this.userPhone = this.userList[this.userId]["userPhone"];
+               this.userAccountBased = this.userList[this.userId]["userAccountBased"];
+           },
+           on_add_record: function () {
+               if (this.userId == '')
+               {
+                   alert("Please Insert User.");
+                   return;
+               }
+               var params = {
+                   "userId": this.userId,
+                   "userFirstName": this.userFirstName,
+                   "userLastName": this.userLastName,
+                   "userEmail": this.userEmail,
+                   "userPhone": this.userPhone,
+                   "userAccountBased": this.userAccountBased,
+                   "type": this.type,
+                   "amount": this.amount,
+               };
+               $.ajax({
+                    type: "POST",
+                    url: "deposwith/add_record/",
+                    data: params,
+                    success: function(){
+                        load_page_content("deposwith/history");
+                    },
+                    error: function(result) {
+                        alert(result["responseText"]);
+                    }
+               });
+           }
+       }
+    });
+});
+</script>

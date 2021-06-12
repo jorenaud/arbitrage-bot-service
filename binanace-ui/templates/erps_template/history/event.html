@@ -1,0 +1,173 @@
+{% load staticfiles %}
+
+<!-- x-editor CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/editor/select2.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/datetimepicker.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/bootstrap-editable.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/x-editor-style.css" %}">
+<!-- normalize CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-table.css" %}">
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-editable.css" %}">
+
+<div class="data-table-area mg-tb-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+{#                            <h1>Event <span class="table-project-n">History List</span></h1>#}
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div id="toolbar">
+                                <select id="trader_list" class="form-control" style="width: 300px;">
+                                    {% if userlevel == 1 %}
+                                        <option value="all">All Users</option>
+                                    {% endif %}
+                                    {% for user in userList %}
+                                        <option value="{{ user.userName }}">{{ user.email }} ({{ user.userName }})</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <table id="event_table" class="table-bordered" style="margin-top: 10px; width: 100%">
+                                <thead>
+                                <tr style="height: 40px; background-color: black">
+                                    {% for data in headerdata %}
+                                        <th style="text-align:center;">{{ data.name }}</th>
+                                    {% endfor %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="data in event_data" style="height: 40px;">
+                                        <td style="text-align:center;">[[ data.id ]]</td>
+                                        <td style="text-align:center;">[[ data.userName ]]</td>
+                                        <td style="text-align:center;">[[ data.type ]]</td>
+                                        <td style="text-align:center;">[[ data.result ]]</td>
+                                        <td style="text-align:center;">[[ data.time ]]</td>
+                                         <!--<td style="text-align:center;">
+                                            <div v-if="user_level==1">
+                                                <a href="#" data-toggle="tooltip" title="Delete" class=""
+                                                    @click="on_delete_event(data)"><i
+                                                    class="fa fa-trash-o" aria-hidden="true" style="color: white"></i></a>
+                                            </div>
+                                        </td>-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static "js/event.js" %}"></script>
+
+<!-- jquery
+		============================================ -->
+{#<script src="{% static "js/vendor/jquery-1.11.3.min.js" %}"></script>#}
+<!-- bootstrap JS
+    ============================================ -->
+{#<script src="{% static "js/bootstrap.min.js" %}"></script>#}
+
+<!-- data table JS
+    ============================================ -->
+{#<script src="{% static "js/data-table/bootstrap-table.js" %}"></script>#}
+{#<script src="{% static "js/data-table/tableExport.js" %}"></script>#}
+{#<script src="{% static "js/data-table/data-table-active.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-editable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-editable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-resizable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/colResizable-1.5.source.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-export.js" %}"></script>#}
+<!--  editable JS
+    ============================================ -->
+{#<script src="{% static "js/editable/jquery.mockjax.js" %}"></script>#}
+{#<script src="{% static "js/editable/mock-active.js" %}"></script>#}
+{#<script src="{% static "js/editable/select2.js" %}"></script>#}
+{#<script src="{% static "js/editable/moment.min.js" %}"></script>#}
+{#<script src="{% static "js/editable/bootstrap-datetimepicker.js" %}"></script>#}
+{#<script src="{% static "js/editable/bootstrap-editable.js" %}"></script>#}
+{#<script src="{% static "js/editable/xediable-active.js" %}"></script>#}
+
+<!-- bootstrap JS
+    ============================================ -->
+{#<script src="{% static "js/bootstrap.min.js" %}"></script>#}
+
+<script>
+var table_data_vue;
+var event_data = new Array();
+
+
+function refresh_event_data() {
+setTimeout(function () {
+    // Do Something Here
+    var params = {
+        "trader" : $("#trader_list").val()
+     };
+    $.ajax({
+            type: "GET",
+            url: "get_event_data/",
+            data: params,
+            success: function(result){
+            result = JSON.parse(result);
+            var i;
+            table_data_vue.event_data = new Array();
+
+            for (i = 0; i < result.length; i++) {
+                table_data_vue.event_data[i] = result[i];
+            }
+      }});
+
+    refresh_event_data();
+}, 15000);
+
+}
+
+$(document).ready(function () {
+
+    {% for info in event_data %}
+        event_data.push({"uid": "{{ info.uid }}", "id": "{{ info.id }}", "userName": "{{ info.userName }}", "type": "{{ info.type }}",
+                          "result": "{{ info.result }}", "part": "{{ info.part }}", "time": "{{ info.time }}",
+                          "ipaddr": "{{ info.ipaddr }}"});
+    {% endfor %}
+
+    table_data_vue = new Vue({
+        delimiters: ['[[', ']]'],
+
+        el: "#event_table",
+
+        data: {
+            event_data: event_data,
+            user_level: {{ userlevel }},
+        },
+        method: {
+            on_delete_event: function(data) {
+                var res = confirm("Are you Really Deleting Event?");
+                if (res != true)
+                    return;
+                var params = {
+                    "id" : data.uid,
+                };
+                $.ajax({
+                type: "POST",
+                url: "on_delete_event/",
+                data: params,
+                success: function(){
+                    load_page_content("event_view/");
+               },
+                error: function (res) {
+                    alert(res['responseText']);
+                },
+            });
+            },
+        }
+    });
+    refresh_event_data();
+});
+</script>

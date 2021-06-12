@@ -1,0 +1,3 @@
+orderitemid,sku,Weight(OZ),Item-Qty,recipient-name,ship-address-1,ship-address-2,ship-city,ship-state,ship-postal-code,from-name,from-address-1,from-address-2,from-city,from-state,from-postal-code,ship-type,Zone
+FBBVW0813000044088,feixiang,4,1,CR-1080497 ESTER MORA JIMNEZ,8952 NW 24TH TER,,DORAE,FL,33172-2422,JENNY MA,5125 SCHAEFER AVE SUITE 104,,CHINO,CA,91710,first class,
+FBBVW0813000044089,feixiang,4,1,VANDA PHILLIPS,17 JUNIOR DR,,MOUNT VERNON1,AR,72111-9523,JENNY MA,5125 SCHAEFER AVE SUITE 104,,CHINO,CA,91710,first class,

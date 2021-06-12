@@ -1,0 +1,421 @@
+<!doctype html>
+<html class="no-js" lang="en">
+{% load staticfiles %}
+
+
+<link rel="stylesheet" href="{% static "css/pro.min.css" %}">
+
+<style>
+
+    span.select2-search.select2-search--dropdown input {
+        background: transparent;
+    }
+    #dash_label {
+        background-color: #2b2b2b;
+        color: #fff;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    #dashboard1 {
+        width: 100%;
+        height: 400px;
+        background-color: #2b2b2b;
+        color: #fff;
+    }
+
+    #dashboard2 {
+        width: 100%;
+        height: 400px;
+        background-color: #2b2b2b;
+        color: #fff;
+    }
+
+    #dashboard3 {
+        width: 100%;
+        height: 400px;
+        background-color: #2b2b2b;
+        color: #fff;
+    }
+
+    #dashboard4 {
+        width: 100%;
+        height: 400px;
+        background-color: #2b2b2b;
+        color: #fff;
+    }
+
+    #dashboard5 {
+        width: 100%;
+        height: 400px;
+        background-color: #2b2b2b;
+        color: #fff;
+    }
+</style>
+
+<script type="text/javascript">
+    function onclick_top_menu(id, url, root_name, sub_name) {
+
+        $(".breadcome-list").removeClass("single-page-breadcome");
+        if (url != "dashboard")
+            $(".breadcome-list").addClass("single-page-breadcome");
+
+        $(".sidebar-item").removeClass("active");
+        // $(".sidebar-item").removeClass("selected");
+        $("#topMenu_" + id).addClass("active");
+        // $("#topMenu_" + id).addClass("selected");
+
+        $("#loading").css("display", "");
+        $(".page-content").css("opacity", "0.3");
+        // $("#jcs").addClass("modal-backdrop fade in");
+
+        $("#sub_name").text("");
+        $("#root_name").text(root_name + " / " + sub_name);
+        var onclick_func = "$('#sub_name').text('');load_page_content('" + url + "');";
+        $("#root_name").attr("onclick", onclick_func);
+
+        load_page_content(url, function () {
+            $("#loading").css("display", "None");
+            $(".page-content").css("opacity", "1");
+            // $("#jcs").removeClass("modal-backdrop fade in");
+        });
+    }
+</script>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>AI-Arbitrage Club</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+		============================================ -->
+    <link rel="shortcut icon" href="{% static 'assets/images/logo03a-122x95.png' %}" type="image/x-icon">
+    <!-- Google Fonts
+		============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+    <!-- owl.carousel CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "css/owl.carousel.css" %}">
+    <link rel="stylesheet" href="{% static "css/owl.theme.css" %}">
+    <link rel="stylesheet" href="{% static "css/owl.transitions.css" %}">
+    <!-- animate CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "css/animate.css" %}">
+    <!-- normalize CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "css/normalize.css" %}">
+    <!-- meanmenu icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "css/meanmenu.min.css" %}">
+    <!-- main CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <!-- morrisjs CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "css/morrisjs/morris.css" %}">
+    <!-- mCustomScrollbar CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "css/scrollbar/jquery.mCustomScrollbar.min.css" %}">
+    <!-- metisMenu CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "css/metisMenu/metisMenu.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/metisMenu/metisMenu-vertical.css" %}">
+    <!-- calendar CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "css/calendar/fullcalendar.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/calendar/fullcalendar.print.min.css" %}">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <!-- responsive CSS
+		============================================ -->
+    <link rel="stylesheet" href="{% static "css/responsive.css" %}">
+    <link rel="stylesheet" href="{% static "css/flag-icon.css" %}">
+    <!-- modernizr JS
+		============================================ -->
+    <script src="{% static "js/vendor/modernizr-2.8.3.min.js" %}"></script>
+
+    <script type="text/javascript" src="{% static "js/vue.js" %}"></script>
+
+</head>
+
+<body style="background: linear-gradient(to bottom, rgba(0, 0, 0, .6) 0, rgba(0, 0, 0, .6) 100%), url({% static "img/bg-masthead.jpg" %}) fixed; background-size: 100% 100%">
+
+<div class="left-sidebar-pro">
+    <nav id="sidebar" class="">
+        <div class="sidebar-header">
+            <a href="index.html"><img class="main-logo" src="{% static "img/logo/logo.png" %}" alt="" style="width: 197px;"></a>
+        </div>
+        <div class="left-custom-menu-adp-wrap comment-scrollbar">
+            <nav class="sidebar-nav left-sidebar-menu-pro">
+                <ul class="metismenu" id="menu1">
+                    {% for menu in menudata %}
+                        {% if menu.parent_id == 0 %}
+                            {% if menu.has_child == 0 %}
+                                <li id="topMenu_{{ menu.id }}" class="sidebar-item">
+                                    <a href="#"
+                                       onclick="javascript:onclick_top_menu({{ menu.id }}, '{{ menu.url }}', '{{ menu.name }}', '')"
+                                       class="">
+                                        <i class="{{ menu.icon }}"></i>
+                                        <span class="mini-click-non">{{ menu.name }}</span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li id="topMenu_{{ menu.id }}" class="sidebar-item">
+                                    <a href="#" class="">
+                                        <i class="{{ menu.icon }}"></i>
+                                        <span class="mini-click-non">{{ menu.name }}</span>
+                                    </a>
+
+                                    <ul class="submenu-angle" aria-expanded="true">
+                                        {% for submenu in menudata %}
+                                            {% if submenu.parent_id == menu.id %}
+                                                {% if submenu.has_child == 0 %}
+                                                    <li>
+                                                        <a href="#"
+                                                           onclick="javascript:onclick_top_menu({{ menu.id }}, '{{ submenu.url }}', '{{ menu.name }}', '{{ submenu.name }}')"
+                                                           class="sidebar-link">
+                                                            <i class="{{ submenu.icon }}" aria-hidden="true"></i>
+                                                            <span class="mini-sub-pro">{{ submenu.name }}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </nav>
+</div>
+<!-- Start Welcome area -->
+<div class="all-content-wrapper">
+    <div class="header-advance-area">
+        <div class="header-top-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="header-top-wraper">
+                            <div class="row">
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                                    <div class="menu-switcher-pro">
+                                        <button type="button" id="sidebarCollapse"
+                                                class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                           <!--          <ul class="breadcome-menu pull-left">
+                                        <li><h3><a id="root_name" href="#" onclick="">Dashboard / </a><a id="sub_name"
+                                                                                                         href="#"></a>
+                                        </h3></li>
+                                    </ul> -->
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="header-right-info">
+                                        <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                            <li class="nav-item">
+                                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                                   class="nav-link dropdown-toggle">
+                                                    <i class="fa fa-user adminpro-user-rounded header-riht-inf"
+                                                       aria-hidden="true"></i>
+                                                    <span class="admin-name">{{ username }}</span>
+                                                    <i class="fa fa-angle-down adminpro-icon adminpro-down-arrow"></i>
+                                                </a>
+                                                <ul role="menu" style="left: -50px"
+                                                    class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                    <li><a href="#" onclick="on_logout()"><span
+                                                            class="fa fa-lock author-log-ic"></span>Log Out</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu start -->
+        <div class="mobile-menu-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="mobile-menu">
+                            <nav id="dropdown">
+                                <ul class="mobile-menu-nav" id="menu2">
+                                    {% for menu in menudata %}
+                                        {% if menu.parent_id == 0 %}
+                                            {% if menu.has_child == 0 %}
+                                                <li id="topMenu_{{ menu.id }}" class="sidebar-item">
+                                                    <a href="#"
+                                                       onclick="javascript:onclick_top_menu({{ menu.id }}, '{{ menu.url }}')"
+                                                       class="">
+                                                        <i class="{{ menu.icon }}"></i>
+                                                        <span class="mini-click-non">{{ menu.name }}</span>
+                                                    </a>
+                                                </li>
+                                            {% else %}
+                                                <li id="topMenu_{{ menu.id }}" class="sidebar-item">
+                                                    <a href="#" lass="">
+                                                        <i class="{{ menu.icon }}"></i>
+                                                        <span class="mini-click-non">{{ menu.name }}</span>
+                                                    </a>
+
+                                                    <ul class="submenu-angle" aria-expanded="true">
+                                                        {% for submenu in menudata %}
+                                                            {% if submenu.parent_id == menu.id %}
+                                                                {% if submenu.has_child == 0 %}
+                                                                    <li>
+                                                                        <a href="#"
+                                                                           onclick="javascript:onclick_top_menu({{ menu.id }}, '{{ submenu.url }}')"
+                                                                           class="sidebar-link">
+                                                                            <i class="{{ submenu.icon }}"
+                                                                               aria-hidden="true"></i>
+                                                                            <span class="mini-sub-pro">{{ submenu.name }}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu end -->
+    </div>
+    <div id="loading" style="position:absolute; z-index: 99999; display:None; margin-left:40%;">
+        <img src="{% static "img/loading.gif" %}" style="">
+    </div>
+    <div class="page-content">
+
+    </div>
+    <div class="footer-copyright-area" style="display: none;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-copy-right">
+                        <p><a href="#"><strong>Created by: Faisal SSi</strong></a> - Binus MTI 2001847780</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static "js/amcharts4/core.js" %}"></script>
+<script src="{% static "js/amcharts4/charts.js" %}"></script>
+<script src="{% static "js/amcharts4/themes/dark.js" %}"></script>
+<script src="{% static "js/amcharts4/themes/animated.js" %}"></script>
+
+<!-- jquery
+    ============================================ -->
+<script src="{% static "js/vendor/jquery-1.11.3.min.js" %}"></script>
+<!-- bootstrap JS
+    ============================================ -->
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<!-- wow JS
+    ============================================ -->
+<script src="{% static "js/wow.min.js" %}"></script>
+<!-- price-slider JS
+    ============================================ -->
+<script src="{% static "js/jquery-price-slider.js" %}"></script>
+<!-- meanmenu JS
+    ============================================ -->
+<script src="{% static "js/jquery.meanmenu.js" %}"></script>
+<!-- owl.carousel JS
+    ============================================ -->
+<script src="{% static "js/owl.carousel.min.js" %}"></script>
+<!-- sticky JS
+    ============================================ -->
+<script src="{% static "js/jquery.sticky.js" %}"></script>
+<!-- scrollUp JS
+    ============================================ -->
+<script src="{% static "js/jquery.scrollUp.min.js" %}"></script>
+<!-- mCustomScrollbar JS
+    ============================================ -->
+<script src="{% static "js/scrollbar/jquery.mCustomScrollbar.concat.min.js" %}"></script>
+<script src="{% static "js/scrollbar/mCustomScrollbar-active.js" %}"></script>
+<!-- metisMenu JS
+    ============================================ -->
+<script src="{% static "js/metisMenu/metisMenu.min.js" %}"></script>
+<script src="{% static "js/metisMenu/metisMenu-active.js" %}"></script>
+<!-- morrisjs JS
+    ============================================ -->
+{#<script src="{% static "js/morrisjs/raphael-min.js" %}"></script>#}
+{#<script src="{% static "js/morrisjs/morris.js" %}"></script>#}
+{#<script src="{% static "js/morrisjs/morris-active.js" %}"></script>#}
+<!-- morrisjs JS
+    ============================================ -->
+<script src="{% static "js/sparkline/jquery.sparkline.min.js" %}"></script>
+<script src="{% static "js/sparkline/jquery.charts-sparkline.js" %}"></script>
+<!-- calendar JS
+    ============================================ -->
+<script src="{% static "js/calendar/moment.min.js" %}"></script>
+<script src="{% static "js/calendar/fullcalendar.min.js" %}"></script>
+<script src="{% static "js/calendar/fullcalendar-active.js" %}"></script>
+<!-- plugins JS
+    ============================================ -->
+<script src="{% static "js/plugins.js" %}"></script>
+<!-- main JS
+    ============================================ -->
+<script src="{% static "js/main.js" %}"></script>
+<script src="{% static "js/login.js" %}"></script>
+
+<script src="{% static "js/amcharts4/core.js" %}"></script>
+<script src="{% static "js/amcharts4/charts.js" %}"></script>
+<script src="{% static "js/amcharts4/themes/dark.js" %}"></script>
+<script src="{% static "js/amcharts4/themes/animated.js" %}"></script>
+
+<script>
+
+    function load_page_content(url, param = {}) {
+
+        $("#loading").css("display", "");
+        $(".page-content").css("opacity", "0.3");
+
+         $('.page-content').load(url, param, function () {
+
+            $("#loading").css("display", "None");
+            $(".page-content").css("opacity", "1");
+        });
+    }
+    $(document).ready(function () {
+        load_page_content("dashboard/", function () {
+            $("#loading").css("display", "None");
+            $(".page-content").css("opacity", "1");
+        });
+
+        //refresh_active_date();
+    });
+</script>
+
+<div id="waiting" class=""></div>
+</body>
+
+</html>

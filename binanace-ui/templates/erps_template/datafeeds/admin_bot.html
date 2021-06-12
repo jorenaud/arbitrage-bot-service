@@ -1,0 +1,459 @@
+{% load staticfiles %}
+
+<!-- x-editor CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/editor/select2.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/datetimepicker.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/bootstrap-editable.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/x-editor-style.css" %}">
+<!-- normalize CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-table.css" %}">
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-editable.css" %}">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+<div class="data-table-area mg-tb-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+{#                            <h1>Access <span class="table-project-n">History List</span></h1>#}
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div id="toolbar" class="row">
+                                <div class="col-md-10">
+                                    <button id="add_admin_bot" type="button" data-toggle="modal" data-target="#add_admin_bot_modal"
+                                            class="form-control" style="width: 15%;">Add Bot</button>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <input class="form-control" style="width: 100%;" placeholder="Search">
+                                </div>
+                            </div>
+                            <table id="admin_bots_table" class="table-bordered" style="margin-top: 10px; width: 100%">
+                                <thead>
+                                    <tr style="height: 40px; background-color: black">
+                                        {% for data in headerdata %}
+                                            <th style="text-align:center;">{{ data.name }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(data, index) in body_data" style="height: 40px;">
+                                        <td style="text-align:center;">[[ data.id ]]</td>
+                                        <td style="text-align:center;">[[ data.name]]</td>
+                                        <td style="text-align:center;">[[ data.description ]]</td>
+                                        <td style="text-align:center;">[[ data.currency ]]</td>
+                                        <td style="text-align:center;">
+                                            <select v-bind:id="'interval_select_' + data.id" class="form-control" style="width:100%; float:left;" @change="OnChangeIntervalAndPrice(data)" v-model="data.intervalId" :disabled="user_level!=1">
+                                                {% for interval in intervals %}
+                                                    <option value="{{ interval.id }}" >{{ interval.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <select v-bind:id="'price_select_' + data.id" class="form-control" style="width:100%; float:left;" @change="OnChangeIntervalAndPrice(data)" v-model="data.priceId" :disabled="user_level!=1">
+                                                {% for price in prices %}
+                                                    <option value="{{ price.id }}" >{{ price.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                        <td style="text-align:center;">[[ data.period ]]</td>
+                                        <td style="text-align:center;">[[ data.source ]]</td>
+                                        <td style="text-align:center;">
+                                            <a href="#" data-toggle="tooltip" title="Delete" class=""
+                                                @click="on_delete_admin_bot(data.id, data.name)"><i
+                                                class="fa fa-trash-o" aria-hidden="true" style="color: white"></i></a>
+                                            <a href="#" data-toggle="modal" data-target="#edit_admin_bot_modal" title="Edit" class=""
+                                                @click="on_edit_param_admin_bot(data)"><i
+                                                class="fa fa-edit" aria-hidden="true" style="color: white"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="add_admin_bot_modal" class="modal" style="display: none;">
+    <div class="modal-backdrop" style="width: 35%; height: 70%; margin: auto; background: #303030;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="user-data m-b-30">
+                    <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>-->
+                    <div class="col-md-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="text-center custom-login" style="margin-top: 25px;">
+                            <h2>ADD BOT</h2>
+                        </div>
+                        <form action="#" id="add_admin_bot_form">
+                            <div class="row">
+                                <div class="form-group col-lg-12">
+                                    <label>Name</label>
+                                    <input class="form-control" id="name">
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Description</label>
+                                    <input class="form-control" id="description">
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Currency</label>
+                                    <input class="form-control" id="currency">
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Time Interval</label>
+                                    <select class="form-control" id="intervalId">
+                                        {% for interval in intervals %}
+                                            <option value="{{ interval.id }}">{{ interval.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Price</label>
+                                    <select class="form-control" id="priceId">
+                                        {% for price in prices %}
+                                            <option value="{{ price.id }}">{{ price.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Period</label>
+                                    <input class="form-control" id="period" value="50">
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Source</label>
+                                    <input class="form-control" id="source" value="1">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                                <div class="form-group col-lg-2">
+                                    <button class="form-control" onclick="on_add_admin_bot()" data-dismiss="modal">Add</button>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <button class="form-control" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="edit_admin_bot_modal" class="modal" style="display: none;">
+    <div class="modal-backdrop" style="width: 35%; height: 76%; margin: auto; background: #303030;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="user-data m-b-30">
+                    <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>-->
+                    <div class="col-md-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="text-center custom-login" style="margin-top: 25px;">
+                            <h2>EDIT BOT</h2>
+                        </div>
+                        <form action="#" id="edit_admin_bot_form">
+                            <div class="row">
+                                <div class="form-group col-lg-12">
+                                    <label>ID</label>
+                                    <input class="form-control" id="id" readonly style="background: transparent;">
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Name</label>
+                                    <input class="form-control" id="name">
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Description</label>
+                                    <input class="form-control" id="description">
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Currency</label>
+                                    <input class="form-control" id="currency">
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Time Interval</label>
+                                    <select class="form-control" id="intervalId">
+                                        {% for interval in intervals %}
+                                            <option value="{{ interval.id }}">{{ interval.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Price</label>
+                                    <select class="form-control" id="priceId">
+                                        {% for price in prices %}
+                                            <option value="{{ price.id }}">{{ price.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Period</label>
+                                    <input class="form-control" id="period" value="50">
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Source</label>
+                                    <input class="form-control" id="source" value="1">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                                <div class="form-group col-lg-2">
+                                    <button class="form-control" onclick="on_edit_admin_bot()" data-dismiss="modal">Save</button>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <button class="form-control" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+
+var admin_bots_vue;
+var admin_bots_data;
+
+function on_add_admin_bot() {
+        var name = $("#add_admin_bot_modal #add_admin_bot_form #name").val();
+        if (name == '')
+        {
+            alert("Please Insert Bot Name");
+            return;
+        }
+        var description = $("#add_admin_bot_modal #add_admin_bot_form #description").val();
+        if (description == '')
+        {
+            alert("Please Insert Description");
+            return;
+        }
+        var currency = $("#add_admin_bot_modal #add_admin_bot_form #currency").val();
+        if (currency == '')
+        {
+            alert("Please Insert Currency");
+            return;
+        }
+        var intervalId = $("#add_admin_bot_modal #add_admin_bot_form #intervalId").val();
+        if (intervalId == '')
+        {
+            alert("Please Insert Time Interval");
+            return;
+        }
+        var priceId = $("#add_admin_bot_modal #add_admin_bot_form #priceId").val();
+        if (priceId == '')
+        {
+            alert("Please Insert Price");
+            return;
+        }
+        var period = $("#add_admin_bot_modal #add_admin_bot_form #period").val();
+        if (period == '')
+        {
+            alert("Please Insert Period");
+            return;
+        }
+        var source = $("#add_admin_bot_modal #add_admin_bot_form #source").val();
+        if (source == '')
+        {
+            alert("Please Insert Source");
+            return;
+        }
+        var params = {
+            "name" : name,
+            "description": description,
+            "currency": currency,
+            "intervalId": intervalId,
+            "priceId": priceId,
+            "period": period,
+            "source": source
+        };
+    $.ajax({
+            type: "POST",
+            url: "add_admin_bot/",
+            data: params,
+            success: function(){
+                    load_page_content("setting_bot/");
+                },
+                error: function (res) {
+                    alert(res['responseText']);
+                },
+    });
+}
+
+function on_edit_admin_bot() {
+        var ident = $("#edit_admin_bot_modal #edit_admin_bot_form #id").val();
+        if (ident == '')
+        {
+            alert("Please Insert Bot Id");
+            return;
+        }
+        var name = $("#edit_admin_bot_modal #edit_admin_bot_form #name").val();
+        if (name == '')
+        {
+            alert("Please Insert Bot Name");
+            return;
+        }
+        var description = $("#edit_admin_bot_modal #edit_admin_bot_form #description").val();
+        if (description == '')
+        {
+            alert("Please Insert Description");
+            return;
+        }
+        var currency = $("#edit_admin_bot_modal #edit_admin_bot_form #currency").val();
+        if (currency == '')
+        {
+            alert("Please Insert Currency");
+            return;
+        }
+        var intervalId = $("#edit_admin_bot_modal #edit_admin_bot_form #intervalId").val();
+        if (intervalId == '')
+        {
+            alert("Please Insert Time Interval");
+            return;
+        }
+        var priceId = $("#edit_admin_bot_modal #edit_admin_bot_form #priceId").val();
+        if (priceId == '')
+        {
+            alert("Please Insert Price");
+            return;
+        }
+        var period = $("#edit_admin_bot_modal #edit_admin_bot_form #period").val();
+        if (period == '')
+        {
+            alert("Please Insert Period");
+            return;
+        }
+        var source = $("#edit_admin_bot_modal #edit_admin_bot_form #source").val();
+        if (source == '')
+        {
+            alert("Please Insert Source");
+            return;
+        }
+        var params = {
+            "id": ident,
+            "name" : name,
+            "description": description,
+            "currency": currency,
+            "intervalId": intervalId,
+            "priceId": priceId,
+            "period": period,
+            "source": source
+        };
+    $.ajax({
+            type: "POST",
+            url: "edit_admin_bot/",
+            data: params,
+            success: function(){
+                    load_page_content("setting_bot/");
+                },
+                error: function (res) {
+                    alert(res['responseText']);
+                },
+    });
+}
+
+function on_refresh_admin_bots() {
+    // Do Something Here
+    $.ajax({
+            type: "GET",
+            url: "get_admin_bots/",
+            async:false,
+            success: function(result){
+                result = JSON.parse(result);
+                var i;
+                admin_bots_data = new Array();
+
+                for (i = 0; i < result.length; i++) {
+                    admin_bots_data[i] = result[i];
+                }
+      }});
+}
+
+$(document).ready(function () {
+
+    on_refresh_admin_bots();
+    admin_bots_vue = new Vue({
+        delimiters: ['[[', ']]'],
+
+        el: "#admin_bots_table",
+
+        data: {
+            body_data: admin_bots_data,
+            user_level: {{ userlevel }},
+        },
+
+        methods: {
+            on_delete_admin_bot: function(uid, botName) {
+                var res = confirm("Are you Really Deleting now? botName: " + botName);
+                if (res != true)
+                    return;
+
+                var params = {
+                    "id" : uid
+                };
+                $.ajax({
+                type: "POST",
+                url: "delete_admin_bot/",
+                data: params,
+                success: function(){
+                    load_page_content("setting_bot/");
+               },
+                error: function (res) {
+                    alert(res['responseText']);
+                },
+            });
+            },
+
+            on_edit_param_admin_bot: function (data) {
+                $("#edit_admin_bot_modal #edit_admin_bot_form #id").val(data.id);
+                $("#edit_admin_bot_modal #edit_admin_bot_form #name").val(data.name);
+                $("#edit_admin_bot_modal #edit_admin_bot_form #description").val(data.description);
+                $("#edit_admin_bot_modal #edit_admin_bot_form #currency").val(data.currency);
+                $("#edit_admin_bot_modal #edit_admin_bot_form #intervalId").val(data.intervalId);
+                $("#edit_admin_bot_modal #edit_admin_bot_form #priceId").val(data.priceId);
+                $("#edit_admin_bot_modal #edit_admin_bot_form #period").val(data.period);
+                $("#edit_admin_bot_modal #edit_admin_bot_form #source").val(data.source);
+            },
+
+            OnChangeIntervalAndPrice: function(data) {
+                var intervalId = $("#interval_select_" + data.id.toString()).val();
+                var priceId = $("#price_select_" + data.id.toString()).val();
+                var params = {
+                    "id" : data.id,
+                    "intervalId" : intervalId,
+                    "priceId": priceId
+                };
+
+                $.ajax({
+                type: "POST",
+                url: "change_admin_bot/",
+                data: params,
+                success: function(){
+                    load_page_content("setting_bot/");
+               },
+                error: function (res) {
+                    alert(res);
+                },
+            });
+            }
+        }
+    });
+
+});
+
+</script>

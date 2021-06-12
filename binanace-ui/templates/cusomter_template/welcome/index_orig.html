@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html class="no-js" prefix="og: http://ogp.me/ns#"  lang="en-IN">
+{% load staticfiles  %}
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Startup - Business Free Bootstrap Template</title>
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+
+        <meta name="description" content="We craft awesome Bootstrap themes for free and share selected resources for web designer &amp; developer. Download Free HTML themes for Bootstrap" /> 
+        <link href="{% static 'customer/img/startup_logo_96dp.png' %}" rel="apple-touch-icon" sizes="96x96">
+        <link href="{% static 'customer/img/startup_logo_96dp.png' %}" rel="icon" sizes="96x96" type="image/png">
+        <link href="{% static 'customer/img/startup_logo_32dp.png' %}" rel="icon" sizes="32x32" type="image/png">
+        <meta content="{% static 'customer/img/startup_logo_96dp.png' %}" name="msapplication-TileImage">
+        
+        <meta property="og:url" content="https://www.boostraptheme.com/demo/index.html" />
+        <meta property="og:title" content="Startup - Business Free Bootstrap Template" />
+        <meta property="og:locale" content="en_IN" /> 
+        <meta property="og:site_name" content="Boostraptheme" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="BoostrapTheme" />
+        <meta name="twitter:creator" content="BoostrapTheme" />
+
+        <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'customer/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'customer/css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'customer/css/app.css' %}">
+
+        <script src="{% static 'customer/js/jquery.min.js' %}"></script>
+        <script> $(window).on('load', function(){ $(".loader").fadeOut(2000); }); </script>
+    </head>
+
+    <body>
+
+        <div class="loader"></div>
+        <!-- NAVIGATION 
+            =================-->
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color: black">
+              <div class="container-fluid">
+                <a class="navbar-brand js-scroll-trigger" href="index.html"><img src="{% static 'customer/img/logo.png' %}" style="max-height: 60px;" alt="" class="img-fluid"></a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                  Menu
+                  <i class="fa fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                  <ul class="navbar-nav text-uppercase ml-auto">
+
+                      {% for menu in menudata %}
+                        {% if menu.parent_id == 0 %}
+                            {% if menu.has_child == 0 %}
+                                <li class="nav-item">
+                                    <a class="nav-link js-scroll-trigger" href="{{ menu.url }}">{{ menu.name }}</a>
+                                </li>
+                            {% else %}
+                                <li class="menu-has-children"><a href="{{ menu.url }}">{{ menu.name }}</a>
+                                <ul>
+                                    {% for submenu in menudata %}
+                                        {% if submenu.parent == menu.name %}
+                                            <li><a href="{{ submenu.url }}">{{ submenu.name }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                  </ul>
+                </div>
+              </div>
+            </nav>
+
+        <!-- HEADER 
+            =================-->
+                <header id="conent">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                      <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                      </ol>
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <div class="img-caption-hide"></div>
+                          <img class="d-block w-100 img-fluid" src="{% static 'customer/img/banner-bg-1.jpg' %}" alt="First slide" style="height: 30%">
+                          <div class="carousel-caption d-none d-md-block" style="top: 20%;">
+                            <span style="font-size:50px; font-weight: bold;color: yellow;">Online Binance Auto </span><span style="font-size:50px; font-weight: bold; color: greenyellow">Trading Web Service</span>
+                              <p><span style="font-size: 30px; color: #fcc610">We offers the automated trading for crypto currencies on Binance online based on deep learning technologies.
+                                  All the information we receive from clients remains 100% confidential. Our reputation is vital to our business success, and we would never do anything to jeopardize that.</span></p>
+                            <!--<div class="btn btn-general btn-white">Contact Us</div>-->
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <div class="img-caption-hide"></div>
+                          <img class="d-block w-100" src="{% static 'customer/img/banner-bg-2.jpg' %}" alt="Second slide" style="height: 30%">
+                          <div class="carousel-caption d-none d-md-block" style="top: 20%;">
+                              <span style="font-size:50px; font-weight: bold;color: yellow;">Online Binance Auto </span><span style="font-size:50px; font-weight: bold; color: greenyellow">Trading Web Service</span>
+                              <p><span style="font-size: 30px; color: #fcc610">We offers the automated trading for crypto currencies on Binance online based on deep learning technologies.
+                                  All the information we receive from clients remains 100% confidential. Our reputation is vital to our business success, and we would never do anything to jeopardize that.</span></p>
+                              <!--<div class="btn btn-general btn-white">Contact Us</div>-->
+                          </div>
+                        </div> 
+                      </div>
+                      <a class="carousel-control-prev carousel-arrs" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="arrow-sliders"><i class="fa fa-angle-left"></i></span>
+                      </a>
+                      <a class="carousel-control-next carousel-arrs" href="#carouselExampleIndicators" role="button" data-slide="next">
+                         <span class="arrow-sliders"><i class="fa fa-angle-right"></i></span>
+                      </a>
+                    </div>
+                  </header>
+
+        <!-- ABOUT 
+            =================-->
+
+
+        <!-- SERVICES 
+            =================-->
+            <section id="how_to_work" class="services" style="background-color: black; color: white; padding: 100px">
+              <div class="container">
+                <div class="row wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-md-12 text-center">
+                        <div class="col-md-12 text-center">
+                            <span style="font-size:40px; line-height:4; color: #fcc610; font-weight: bolder">How Does It Work</span>
+                            <span style="font-size:30px; line-height: 3; color: #947d33; font-weight: bold">
+                                <br>1. Create Account and Set API-KEY and API-SECRET from Your Binance Account.
+                            </span>
+                            <span style="font-size:25px; line-height: 3; color: #ffdfc1">
+                                <br>- Go to Sign Up page and Create account.
+                                <br>- Go to the Your Binance Account and Create API-KEY and API-SECRET.
+                                <br>- Go to Settings tab of the User Page and Set API-KEY and API-SECRET.</span>
+
+                            <span style="font-size:30px; line-height: 3; color: #947d33; font-weight: bold">
+                                <br>2. Choose the Bot you want to trade and Set Quantity per trading.
+                            </span>
+                            <span style="font-size:25px; line-height: 3; color: #ffdfc1">
+                                <br>- Go to BOTS tab of the User Page.
+                                <br>- Choose the Bot you want to trade.
+                                <br>- Set Quantity per trading.
+                            </span>
+
+                            <span style="font-size:30px; line-height: 3; color: #947d33; font-weight: bold">
+                                <br>3. Start Bot.
+                            </span>
+                            <span style="font-size:25px; line-height: 3; color: #ffdfc1">
+                                <br>- Click the Start button in the Bots tab of the User page.
+                            </span>
+
+                            <span style="font-size:30px; line-height: 3; color: #947d33; font-weight: bold">
+                                <br>4. You will be provided with a Trading Signal through Telegram group
+                            </span>
+                            <span style="font-size:25px; line-height: 3; color: #ffdfc1">
+                                <br>- Go to the SETTING tab of the User Page. Click Account item.
+                                <br>- Click Telegram Join button.
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </section>
+            <section id="plan_price" class="about" style="padding-top: 70px; background-color: black; color: white">
+              <div class="container">
+                  <div class="row" style="text-align: center">
+                      <div class="col-md-2"></div>
+                      <div class="col-md-8"><span style="font-size: 40px; font-weight: bolder; color: #b8ae18; padding-bottom: 40px">How much does it cost?</span></div>
+                      <div class="col-md-2"></div>
+                  </div>
+                  <div class="row" style="text-align: center; padding-top: 30px;"><span style="font-size: 20px;"></span></div>
+                <div class="row" style="padding-top: 70px">
+                  <div class="col-md-4  wow fadeInUp" data-wow-delay="0.3s" style="text-align: center; background-color: #2c0006">
+                    <div class="about-cont" style="background-color: #0c0524">
+                      <!--<img src="{% static 'customer/img/about/about-3.jpg' %}" alt="" class="img-fluid">-->
+                        <h4 style="padding-top: 20px">Trial</h4>
+                        <p>* Max Quantity 0.001</p>
+                        <p>* Telegram Signal</p>
+                        <p>* General Support</p>
+                        <p>* 5 Days Expired</p>
+                        <h4 style="padding-top: 20px">Free</h4>
+                    </div>
+                  </div>
+                  <div class="col-md-4 wow fadeInUp" data-wow-delay="0.6s" style="text-align: center; background-color: #09002c">
+                    <div class="about-cont second" style="background-color: #e88a05">
+                      <!--<img src="{% static 'customer/img/about/about-2.jpg' %}" alt="" class="img-fluid">-->
+                        <h4 style="padding-top: 20px">Monthly</h4>
+                        <p>* No Limit Quantity</p>
+                        <p>* Telegram Signal</p>
+                        <p>* General Support</p>
+                        <p>* Monthly Expired</p>
+                        <h4 style="padding-top: 20px">$20USD/Month</h4>
+                    </div>
+                  </div>
+                  <div class="col-md-4 wow fadeInUp" data-wow-delay="0.9s" style="text-align: center; background-color: #7b4640">
+                    <div class="about-cont" style="background-color: #009900;">
+                      <!--<img src="{% static 'customer/img/about/about-1.jpg' %}" alt="" class="img-fluid">-->
+                        <h4 style="padding-top: 20px">Full Life</h4>
+                        <p>* No Limit Quantity</p>
+                        <p>* Telegram Signal</p>
+                        <p>* General Support</p>
+                        <p>* No Limit Expired</p>
+                        <h4 style="padding-top: 20px">$200USD</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+        <!-- FOOTER 
+            =================-->
+            <footer id="contact_us" style="background-color: #000000 !important; background-image: none">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="company-desc">
+                      <!--<img src="{% static 'customer/img/logo.png' %}" alt="" class="img-fluid">-->
+                      <p>Startup traditional, alternative, or just plain creative Indian entrepreneurs want to know some of those ' basic rules'  finance success.</p>
+                      <address><i class="fa fa-map-marker"></i> T34 Ambila, Bangalore 342424, India </address>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="social">
+                      <h3>Social Corner</h3>
+                      <ul>
+                        <li><i class="fa fa-facebook"></i></li>
+                        <li><i class="fa fa-twitter"></i></li>
+                        <li><i class="fa fa-google-plus"></i></li>
+                        <li><i class="fa fa-youtube"></i></li>
+                      </ul>
+                      <div class="cont-info number">
+                        <i class="fa fa-phone"></i>
+                        <a href="tel:1234567890">(+91) 1234567890</a>
+                      </div>
+                      <div class="cont-info mail">
+                        <i class="fa fa-envelope-o"></i>
+                        <a href="mail@startup.com">mail@startup.com</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="latest-news">
+                      <h3>Latest News</h3>
+                      <img src="{% static 'customer/img/blog/blog-small-1.jpg' %}" alt="" class="img-fluid">
+                      <p>Lorem ipsum dolor sit amet, consectetur.</p>
+                      <small>12/06/2018</small>
+                    </div>
+                    <div class="latest-news">
+                      <img src="{% static 'customer/img/blog/blog-small-2.jpg' %}" alt="" class="img-fluid">
+                      <p>Lorem ipsum dolor sit amet, consectetur.</p>
+                      <small>12/06/2018</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-fluid footer-b text-center">
+                <small>Copyrights &copy; 2018 Design by <a href="https://boostraptheme.com/">Boostraptheme</a></small>
+              </div>
+            </footer>
+ 
+        <script src="{% static 'customer/js/popper.min.js' %}"></script>
+        <script src="{% static 'customer/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'customer/js/jquery.easing.min.js' %}"></script>
+        <script src="{% static 'customer/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'customer/js/wow.min.js' %}"></script>
+        <script src="{% static 'customer/js/app.js' %}"></script>
+    </body>
+</html>

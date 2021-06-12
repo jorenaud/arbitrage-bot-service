@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5b12ecbc-0e72-4479-9c1b-76da402aa7d5" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>platformType</find>
+      <find>httprespo</find>
+      <find>auto_now_add=True, blank=True</find>
+      <find>DateTimeField</find>
+      <find>profitRate</find>
+      <find>groupId</find>
+      <find>trader</find>
+      <find>asset</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1QuwKwLfUprtb9UHekkGInxUEcL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../binanace-ui" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="erps_api" type="Python.DjangoServer" factoryName="Django server">
+      <module name="erps_api" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="erps_api.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8001" />
+      <option name="host" value="0.0.0.0" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5b12ecbc-0e72-4479-9c1b-76da402aa7d5" name="Default Changelist" comment="" />
+      <created>1565431154184</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1565431154184</updated>
+      <workItem from="1565431156220" duration="14633000" />
+      <workItem from="1565534441875" duration="26701000" />
+      <workItem from="1565920225331" duration="8621000" />
+      <workItem from="1566013874286" duration="5757000" />
+      <workItem from="1566125876237" duration="6371000" />
+      <workItem from="1566201762531" duration="2640000" />
+      <workItem from="1566305454531" duration="5293000" />
+      <workItem from="1566443571392" duration="626000" />
+      <workItem from="1566446142839" duration="1465000" />
+      <workItem from="1566499138693" duration="1146000" />
+      <workItem from="1566523291562" duration="1210000" />
+      <workItem from="1566526343577" duration="1498000" />
+      <workItem from="1566611792087" duration="337000" />
+      <workItem from="1566612860827" duration="1225000" />
+      <workItem from="1566614735656" duration="5883000" />
+      <workItem from="1566822806013" duration="1008000" />
+      <workItem from="1566824666783" duration="1831000" />
+      <workItem from="1566826678525" duration="833000" />
+      <workItem from="1566868985996" duration="1854000" />
+      <workItem from="1566955537836" duration="683000" />
+      <workItem from="1566974289366" duration="2417000" />
+      <workItem from="1567043603895" duration="669000" />
+      <workItem from="1567103317807" duration="1612000" />
+      <workItem from="1567151953713" duration="4254000" />
+      <workItem from="1567320300585" duration="741000" />
+      <workItem from="1567387895950" duration="3619000" />
+      <workItem from="1567427888405" duration="1898000" />
+      <workItem from="1567476665853" duration="7912000" />
+      <workItem from="1567500332281" duration="3708000" />
+      <workItem from="1567506648586" duration="22499000" />
+      <workItem from="1567574503077" duration="25230000" />
+      <workItem from="1567775312647" duration="17248000" />
+      <workItem from="1568140442097" duration="2996000" />
+      <workItem from="1568477096810" duration="9521000" />
+      <workItem from="1568545035662" duration="78000" />
+      <workItem from="1568546830843" duration="7920000" />
+      <workItem from="1568575063729" duration="2976000" />
+      <workItem from="1568633730741" duration="612000" />
+      <workItem from="1569659198577" duration="14575000" />
+      <workItem from="1569725614328" duration="5304000" />
+      <workItem from="1569753232953" duration="2890000" />
+      <workItem from="1570892259267" duration="49668000" />
+      <workItem from="1571473782140" duration="747000" />
+      <workItem from="1571489558664" duration="1269000" />
+      <workItem from="1571491529697" duration="825000" />
+      <workItem from="1571493579682" duration="9222000" />
+      <workItem from="1571584973881" duration="62258000" />
+      <workItem from="1572140376147" duration="17952000" />
+      <workItem from="1573204777719" duration="18639000" />
+      <workItem from="1573631134584" duration="31290000" />
+      <workItem from="1574328349024" duration="766000" />
+      <workItem from="1574332094829" duration="31698000" />
+      <workItem from="1576509363485" duration="74000" />
+      <workItem from="1576509453717" duration="1312000" />
+      <workItem from="1576894165395" duration="267000" />
+      <workItem from="1577460980096" duration="1064000" />
+      <workItem from="1577520807723" duration="126000" />
+      <workItem from="1579693857532" duration="639000" />
+      <workItem from="1579875939815" duration="793000" />
+      <workItem from="1579953501802" duration="485000" />
+      <workItem from="1587066175060" duration="2063000" />
+      <workItem from="1590129892319" duration="635000" />
+      <workItem from="1590394110507" duration="8045000" />
+      <workItem from="1590670981618" duration="51931000" />
+      <workItem from="1592077442738" duration="3436000" />
+      <workItem from="1592273021370" duration="6104000" />
+      <workItem from="1592434346391" duration="1431000" />
+      <workItem from="1592504139289" duration="70000" />
+      <workItem from="1592511304707" duration="1615000" />
+      <workItem from="1592622990878" duration="1844000" />
+      <workItem from="1592660075027" duration="1856000" />
+      <workItem from="1593096689906" duration="618000" />
+      <workItem from="1593584090002" duration="630000" />
+      <workItem from="1595947254485" duration="741000" />
+      <workItem from="1612886847131" duration="1677000" />
+    </task>
+    <task id="LOCAL-00001" summary="makgemigrations">
+      <created>1571766981388</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1571766981388</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added deposite and withdraw page.">
+      <created>1571931822080</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1571931822080</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added deposite and withdraw page.">
+      <created>1571932741429</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1571932741429</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added deposite and withdraw page.">
+      <created>1573024592570</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1573024592570</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added deposite and withdraw page.">
+      <created>1573329760850</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1573329760850</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added deposite and withdraw page.">
+      <created>1573351166704</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1573351166704</updated>
+    </task>
+    <task id="LOCAL-00007" summary="added deposite and withdraw page.">
+      <created>1573389253995</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1573389253995</updated>
+    </task>
+    <task id="LOCAL-00008" summary="added deposite and withdraw page.">
+      <created>1573390719571</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1573390719571</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added history-server">
+      <created>1573439972856</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1573439972857</updated>
+    </task>
+    <task id="LOCAL-00010" summary="modified access-server">
+      <created>1573631194280</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1573631194280</updated>
+    </task>
+    <task id="LOCAL-00011" summary="modified access-server">
+      <created>1573631429551</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1573631429551</updated>
+    </task>
+    <task id="LOCAL-00012" summary="modified access-server">
+      <created>1573631449413</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1573631449413</updated>
+    </task>
+    <task id="LOCAL-00013" summary="modified access-server">
+      <created>1573634039596</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1573634039596</updated>
+    </task>
+    <task id="LOCAL-00014" summary="modified access-server">
+      <created>1574888043202</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1574888043203</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="makgemigrations" />
+    <MESSAGE value="added deposite and withdraw page." />
+    <MESSAGE value="added history-server" />
+    <MESSAGE value="modified access-server" />
+    <option name="LAST_COMMIT_MESSAGE" value="modified access-server" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://C:/python/Lib/site-packages/rest_framework/views.py</url>
+          <line>504</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/erps_api/basic/views.py</url>
+          <line>40</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/erps_api/basic/views.py</url>
+          <line>60</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/erps_api/basic/views.py</url>
+          <line>255</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Python.DjangoServer">
+        <watch expression="request.query_params" language="Python" />
+        <watch expression="request.query_params" language="Python" />
+        <watch expression="params" language="Python" />
+        <watch expression="request_bak" language="Python" />
+        <watch expression="params['webUsername']" language="Python" />
+        <watch expression="self" language="Python" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>self</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>params['webUsername']</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>params</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>request_bak</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>params[&quot;dd&quot;]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>request.query_params</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>request.</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+</project>

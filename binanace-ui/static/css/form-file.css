@@ -1,0 +1,57 @@
+.form-file .file-input {
+    display: none;
+}
+
+.form-file .file-label {
+    display: inline-block;
+    width: 169px;
+    height: 33px;
+    padding: 4px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2b2b2b;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #2b2b2b;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.form-file .file-label span {
+    margin-right: 5px;
+}
+
+.form-file .file-label:hover {
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+    background: #2b2b2b;
+    color: #fff;
+}
+
+.form-file .file-name {
+    position: relative;
+    color: #2b2b2b;
+    padding-left: 20px;
+    margin-left: 40px;
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+}
+
+.form-file .file-name:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 3px;
+    width: 12px;
+    height: 15px;
+    background: url("../img/file-icon.svg") no-repeat;
+}
+
+.form-file .file-name.selected {
+    display: inline-block;
+}

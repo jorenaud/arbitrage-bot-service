@@ -1,0 +1,382 @@
+{% load staticfiles %}
+
+<!-- x-editor CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/editor/select2.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/datetimepicker.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/bootstrap-editable.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/x-editor-style.css" %}">
+<!-- normalize CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-table.css" %}">
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-editable.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap-toggle.min.css" %}">
+
+<div class="data-table-area mg-tb-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+{#                            <h1>Access <span class="table-project-n">History List</span></h1>#}
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div id="toolbar" class="row">
+                                <div class="col-md-10">
+                                    <select id="user_select" class="form-control" style="width:20%; float:left;" onchange="on_refresh_users()">
+                                        {% if userlevel == 1 %}
+                                            <option value="all">All Users</option>
+                                        {% endif %}
+                                        {% for user in userList %}
+                                            <option value="{{ user.userName }}">{{ user.email }} ({{ user.userName }})</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button id="add_bot" type="button" data-toggle="modal" data-target="#add_bot_modal"
+                                            class="form-control" style="width: 15%;">Add Bot</button>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <input class="form-control" style="width: 100%;" placeholder="Search">
+                                </div>
+                            </div>
+                            <table id="bots_table" class="table-bordered" style="margin-top: 10px; width: 100%">
+                                <thead>
+                                    <tr style="height: 40px; background-color: black">
+                                        {% for data in headerdata %}
+                                            <th style="text-align:center;">{{ data.name }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(data, index) in body_data" style="height: 40px;">
+                                        <td style="text-align:center;">[[ data.id ]]</td>
+                                        <td style="text-align:center;">[[ data.userName]]</td>
+                                        <td style="text-align:center;">[[ data.botID]]</td>
+                                        <td style="text-align:center;">[[ data.name ]]</td>
+                                        <td style="text-align:center;">[[ data.description ]]</td>
+                                        <td style="text-align:center;">[[ data.quantity ]]</td>
+                                        <td class="status" style="text-align:center;">
+                                            <a @click="on_start_or_stop_bot(data)" class="checkbox">
+                                                <div v-if="data.status != 0">
+                                                    <input class="publish-toggle" type="checkbox" data-toggle="toggle" checked>
+                                                </div>
+                                                <div v-else>
+                                                    <input class="publish-toggle" type="checkbox" data-toggle="toggle">
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <a href="#" data-toggle="tooltip" title="Delete" class=""
+                                                @click="on_delete_bot(data.id, data.name)"><i
+                                                class="fa fa-trash-o" aria-hidden="true" style="color: white"></i></a>
+                                            <a href="#" data-toggle="modal" data-target="#edit_bot_modal" title="Edit" class=""
+                                                @click="on_edit_param_bot(data)"><i
+                                                class="fa fa-edit" aria-hidden="true" style="color: white"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="add_bot_modal" class="modal" style="display: none;">
+    <div class="modal-backdrop" style="width: 40%; height: 40%; margin: auto; background: #303030;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="user-data m-b-30">
+                    <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>-->
+                    <div class="col-md-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="text-center custom-login" style="margin-top: 25px;">
+                            <h2>ADD BOT</h2>
+                        </div>
+                        <form action="#" id="add_bot_form">
+                            <div class="row">
+                                <div class="form-group col-lg-12">
+                                    <label>User</label>
+                                    <select class="form-control" id="userName">
+                                        {% for user in userList %}
+                                            <option value="{{ user.userName }}">{{ user.email }} ({{ user.userName }})</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Bot</label>
+                                    <select class="form-control" id="botID">
+                                        {% for bot in bots %}
+                                            <option value="{{ bot.id }}">{{ bot.name }} ({{ bot.description }})</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Quantity</label>
+                                    <input class="form-control" id="quantity" value="0.1">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                                <div class="form-group col-lg-2">
+                                    <button class="form-control" onclick="on_add_bot()" data-dismiss="modal">Add</button>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <button class="form-control" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="edit_bot_modal" class="modal" style="display: none;">
+    <div class="modal-backdrop" style="width: 40%; height: 47%; margin: auto; background: #303030;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="user-data m-b-30">
+                    <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>-->
+                    <div class="col-md-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="text-center custom-login" style="margin-top: 25px;">
+                            <h2>EDIT BOT</h2>
+                        </div>
+                        <form action="#" id="edit_bot_form">
+                            <div class="row">
+                                <div class="form-group col-lg-12">
+                                    <label>ID</label>
+                                    <input class="form-control" id="id" readonly style="background: transparent;">
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>User</label>
+                                    <select class="form-control" id="userName">
+                                        {% for user in userList %}
+                                            <option value="{{ user.userName }}">{{ user.email }} ({{ user.userName }})</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Bot</label>
+                                    <select class="form-control" id="botID">
+                                        {% for bot in bots %}
+                                            <option value="{{ bot.id }}">{{ bot.name }} ({{ bot.description }})</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Quantity</label>
+                                    <input class="form-control" id="quantity" value="default">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                                <div class="form-group col-lg-2">
+                                    <button class="form-control" onclick="on_edit_bot()" data-dismiss="modal">Save</button>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <button class="form-control" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static "js/bootstrap-toggle.min.js" %}"></script>
+<script>
+
+var bots_vue;
+var bots_data = new Array();
+
+function on_add_bot() {
+        var userName = $("#add_bot_modal #add_bot_form #userName").val();
+        if (userName == '')
+        {
+            alert("Please Insert User Name");
+            return;
+        }
+        var botID = $("#add_bot_modal #add_bot_form #botID").val();
+        if (botID == '')
+        {
+            alert("Please Insert Bot Name");
+            return;
+        }
+        var quantity = $("#add_bot_modal #add_bot_form #quantity").val();
+        if (quantity == '')
+        {
+            alert("Please Insert Quantity");
+            return;
+        }
+        var params = {
+            "userName" : userName,
+            "botID" : botID,
+            "quantity" : quantity
+        };
+    $.ajax({
+            type: "POST",
+            url: "add_bot/",
+            data: params,
+            success: function(){
+                    load_page_content("bots/");
+                },
+                error: function (res) {
+                    alert(res['responseText']);
+                },
+    });
+}
+
+function on_edit_bot() {
+        var id = $("#edit_bot_modal #edit_bot_form #id").val();
+        if (id == '')
+        {
+            alert("Please Insert Id");
+            return;
+        }
+        var userName = $("#edit_bot_modal #edit_bot_form #userName").val();
+        if (userName == '')
+        {
+            alert("Please Insert User Name");
+            return;
+        }
+        var botID = $("#edit_bot_modal #edit_bot_form #botID").val();
+        if (botID == '')
+        {
+            alert("Please Insert Bot Name");
+            return;
+        }
+        var quantity = $("#edit_bot_modal #edit_bot_form #quantity").val();
+        if (quantity == '')
+        {
+            alert("Please Insert Quantity");
+            return;
+        }
+        var params = {
+            "id" : id,
+            "userName" : userName,
+            "botID" : botID,
+            "quantity" : quantity
+        };
+    $.ajax({
+            type: "POST",
+            url: "edit_bot/",
+            data: params,
+            success: function(){
+                    load_page_content("bots/");
+                },
+                error: function (res) {
+                    alert(res['responseText']);
+                },
+    });
+}
+
+function on_refresh_users(flag=0) {
+    // Do Something Here
+    var params = {
+        "userName" : $("#user_select").val(),
+     };
+    $.ajax({
+            type: "GET",
+            url: "get_bots_list/",
+            data: params,
+            async:false,
+            success: function(result){
+                result = JSON.parse(result);
+                var i;
+                if (flag != 0)
+                    bots_data = new Array();
+                else
+                    bots_vue.body_data = new Array();
+
+                for (i = 0; i < result.length; i++) {
+                    if (flag != 0)
+                        bots_data[i] = result[i];
+                    else
+                        bots_vue.body_data[i] = result[i];
+                }
+      }});
+}
+
+$(document).ready(function () {
+
+    on_refresh_users(1);
+    bots_vue = new Vue({
+        delimiters: ['[[', ']]'],
+
+        el: "#bots_table",
+
+        data: {
+            body_data: bots_data,
+            user_level: {{ userlevel }},
+        },
+
+        methods: {
+            on_delete_bot: function(uid, botName) {
+                var res = confirm("Are you Really Deleting now? botName: " + botName);
+                if (res != true)
+                    return;
+
+                var params = {
+                    "id" : uid,
+                    "botName" : botName,
+                };
+                $.ajax({
+                type: "POST",
+                url: "delete_bot/",
+                data: params,
+                success: function(){
+                    load_page_content("bots/");
+               },
+                error: function (res) {
+                    alert(res['responseText']);
+                },
+            });
+            },
+
+            on_edit_param_bot: function (data) {
+                $("#edit_bot_modal #edit_bot_form #id").val(data.id);
+                $("#edit_bot_modal #edit_bot_form #userName").val(data.userName);
+                $("#edit_bot_modal #edit_bot_form #botID").val(data.botID);
+                $("#edit_bot_modal #edit_bot_form #quantity").val(data.quantity);
+            },
+
+            on_start_or_stop_bot: function(data) {
+                var status = data.status;
+                var uid = data.id;
+                var userName = data.userName;
+                var params = {
+                    "id" : uid,
+                    "status" : status,
+                    "userName": userName
+                };
+
+                $.ajax({
+                type: "POST",
+                url: "start_stop_bot/",
+                data: params,
+                success: function(){
+                    load_page_content("bots/");
+               },
+                error: function (res) {
+                    alert(res);
+                },
+            });
+            }
+        }
+    });
+
+});
+
+</script>

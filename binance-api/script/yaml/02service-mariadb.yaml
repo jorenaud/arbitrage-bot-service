@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mariadb
+    chart: mariadb-6.8.7
+    component: master
+    heritage: Tiller
+    release: moodle-project
+  name: moodle-project-mariadb
+  selfLink: /api/v1/namespaces/default/services/moodle-project-mariadb
+spec:
+  ports:
+  - name: mysql
+    port: 3306
+    protocol: TCP
+    targetPort: mysql
+  selector:
+    app: mariadb
+    component: master
+    release: moodle-project
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

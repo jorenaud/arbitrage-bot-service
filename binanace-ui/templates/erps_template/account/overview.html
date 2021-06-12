@@ -1,0 +1,159 @@
+
+
+{% load staticfiles %}
+
+<!-- x-editor CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/editor/select2.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/datetimepicker.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/bootstrap-editable.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/x-editor-style.css" %}">
+<!-- normalize CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-table.css" %}">
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-editable.css" %}">
+
+<div class="data-table-area mg-tb-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+{#                            <h1>Access <span class="table-project-n">History List</span></h1>#}
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div id="toolbar" class="row">
+                                <div class="col-md-6">
+                                <!--<select id="realTraderList" class="form-control" style="width: 300px;">
+                                    <option value="all">All Traders</option>
+                                    {% for user in userList %}
+                                        <option value="{{ user.userId }}">{{ user.userEmail }} ({{ user.userId }})</option>
+                                    {% endfor %}
+                                </select>-->
+                                    <h3>Account Balances</h3>
+                                </div>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-2" align="right">
+                                    <input class="form-control" style="width: 170px;" placeholder="Search">
+                                </div>
+                            </div>
+                            <table id="broker_account_table" class="table-bordered" style="margin-top: 10px; width: 100%">
+                                <thead>
+                                <tr style="height: 40px; background-color: black">
+                                    <th style="text-align:center;width: 2%">ID</th>
+                                    <th style="text-align:center;width: 5%">Asset</th>
+                                    <th style="text-align:center;width: 5%">Free</th>
+                                    <th style="text-align:center;width: 5%">Locked</th>
+                                    <th style="text-align:center;width: 2%"></th>
+                                    <th style="text-align:center;width: 2%">ID</th>
+                                    <th style="text-align:center;width: 5%">Asset</th>
+                                    <th style="text-align:center;width: 5%">Free</th>
+                                    <th style="text-align:center;width: 5%">Locked</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="data in body_data" style="height: 40px;">
+                                        <td style="text-align:center;">[[ data.id1 ]]</td>
+                                        <td style="text-align:center;">[[ data.asset1 ]]</td>
+                                        <td style="text-align:center;">[[ data.free1 ]]</td>
+                                        <td style="text-align:center;">[[ data.locked1 ]]</td>
+                                        <td style="text-align:center;"></td>
+                                        <td style="text-align:center;">[[ data.id2 ]]</td>
+                                        <td style="text-align:center;">[[ data.asset2 ]]</td>
+                                        <td style="text-align:center;">[[ data.free2 ]]</td>
+                                        <td style="text-align:center;">[[ data.locked2 ]]</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- jquery
+		============================================ -->
+{#<script src="{% static "js/vendor/jquery-1.11.3.min.js" %}"></script>#}
+<!-- bootstrap JS
+    ============================================ -->
+{#<script src="{% static "js/bootstrap.min.js" %}"></script>#}
+
+<!-- data table JS
+    ============================================ -->
+{#<script src="{% static "js/data-table/bootstrap-table.js" %}"></script>#}
+{#<script src="{% static "js/data-table/tableExport.js" %}"></script>#}
+{#<script src="{% static "js/data-table/data-table-active.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-editable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-editable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-resizable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/colResizable-1.5.source.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-export.js" %}"></script>#}
+<!--  editable JS
+    ============================================ -->
+{#<script src="{% static "js/editable/jquery.mockjax.js" %}"></script>#}
+{#<script src="{% static "js/editable/mock-active.js" %}"></script>#}
+{#<script src="{% static "js/editable/select2.js" %}"></script>#}
+{#<script src="{% static "js/editable/moment.min.js" %}"></script>#}
+{#<script src="{% static "js/editable/bootstrap-datetimepicker.js" %}"></script>#}
+{#<script src="{% static "js/editable/bootstrap-editable.js" %}"></script>#}
+{#<script src="{% static "js/editable/xediable-active.js" %}"></script>#}
+
+<!-- bootstrap JS
+    ============================================ -->
+{#<script src="{% static "js/bootstrap.min.js" %}"></script>#}
+
+
+
+<script>
+var table_broker_vue;
+var broker_account_data = new Array();
+
+
+function refresh_brokerAccount_data() {
+setTimeout(function () {
+    // Do Something Here
+
+    $.ajax({url: "get_account_data/",
+            success: function(result){
+            result = JSON.parse(result);
+            var i;
+            table_broker_vue.body_data = new Array();
+
+            for (i = 0; i < result.length; i++) {
+                table_broker_vue.body_data[i] = result[i];
+            }
+      }});
+
+    refresh_brokerAccount_data();
+}, 5000);
+
+}
+
+$(document).ready(function () {
+
+    {% for info in bodydata %}
+        broker_account_data.push({"id1": "{{ info.id1 }}", "asset1": "{{ info.asset1 }}", "free1": "{{ info.free1 }}",
+                          "locked1": "{{ info.locked1}}", "id2": "{{ info.id2}}", "asset2": "{{ info.asset2 }}",
+                          "free2": "{{ info.free2 }}", "locked2": "{{ info.locked2 }}"});
+    {% endfor %}
+
+    table_broker_vue = new Vue({
+        delimiters: ['[[', ']]'],
+
+        el: "#broker_account_table",
+
+        data: {
+            body_data: broker_account_data,
+            user_level: {{ userlevel }},
+        },
+    });
+    refresh_brokerAccount_data();
+});
+</script>

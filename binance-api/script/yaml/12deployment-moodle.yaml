@@ -1,0 +1,102 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: moodle-project-moodle
+    chart: moodle-6.1.7
+    heritage: Tiller
+    release: moodle-project
+  name: moodle-project-moodle
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/moodle-project-moodle
+spec:
+  progressDeadlineSeconds: 2147483647
+  replicas: 1
+  revisionHistoryLimit: 2147483647
+  selector:
+    matchLabels:
+      app: moodle-project-moodle
+      release: moodle-project
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: moodle-project-moodle
+        chart: moodle-6.1.7
+        release: moodle-project
+    spec:
+      containers:
+      - env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        - name: MARIADB_HOST
+          value: moodle-project-mariadb
+        - name: MARIADB_PORT_NUMBER
+          value: "3306"
+        - name: MOODLE_DATABASE_NAME
+          value: bitnami_moodle
+        - name: MOODLE_DATABASE_USER
+          value: bn_moodle
+        - name: MOODLE_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: mariadb-password
+              name: moodle-project-mariadb
+        - name: MOODLE_USERNAME
+          value: user
+        - name: MOODLE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: moodle-password
+              name: moodle-project-moodle
+        - name: MOODLE_EMAIL
+          value: user@example.com
+        - name: SMTP_HOST
+        - name: SMTP_PORT
+        - name: SMTP_USER
+        - name: SMTP_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: smtp-password
+              name: moodle-project-moodle
+        - name: SMTP_PROTOCOL
+        image: docker.io/bitnami/moodle:3.7.2-debian-9-r3
+        imagePullPolicy: IfNotPresent
+        name: moodle
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        - containerPort: 443
+          name: https
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 300m
+            memory: 512Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /bitnami
+          name: moodle-data
+      dnsPolicy: ClusterFirst
+      hostAliases:
+      - hostnames:
+        - status.localhost
+        ip: 127.0.0.1
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir: {}
+        name: moodle-data
+status: {}

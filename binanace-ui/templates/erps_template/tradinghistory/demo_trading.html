@@ -1,0 +1,183 @@
+
+
+{% load staticfiles %}
+
+<!-- x-editor CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/editor/select2.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/datetimepicker.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/bootstrap-editable.css" %}">
+<link rel="stylesheet" href="{% static "css/editor/x-editor-style.css" %}">
+<!-- normalize CSS
+    ============================================ -->
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-table.css" %}">
+<link rel="stylesheet" href="{% static "css/data-table/bootstrap-editable.css" %}">
+
+<div class="data-table-area mg-tb-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+{#                            <h1>Access <span class="table-project-n">History List</span></h1>#}
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div id="toolbar" class="row">
+                                <div class="col-md-4">
+                                <select id="demoTraderListHistory" class="form-control" style="width: 300px;" onchange="refresh_demotraing_hisotry()">
+                                    <option value="all">All Demo Traders</option>
+                                    {% for user in userList %}
+                                        <option value="{{ user.userId }}">{{ user.userEmail }} ({{ user.userId }})</option>
+                                    {% endfor %}
+                                </select>
+                                </div>
+                                <div class="col-md-6"></div>
+                                <div class="col-md-2" align="right">
+                                    <input class="form-control" style="width: 170px;" placeholder="Search">
+                                </div>
+                            </div>
+                            <table id="demotablehistory" class="table-bordered" style="margin-top: 10px; width: 100%">
+
+                                <thead>
+                                <tr style="height: 40px; background-color: black">
+                                    <th style="text-align:center;width: 2%"></th>
+                                    <th style="text-align:center;width: 2%">ID</th>
+                                    <th style="text-align:center;width: 10%">Transaction ID</th>
+                                    <th style="text-align:center;width: 4%">UserID</th>
+                                    <th style="text-align:center;width: 4%">Symbol</th>
+                                    <th style="text-align:center;width: 4%">TimeFrame</th>
+                                    <th style="text-align:center;width: 6%">Order Type</th>
+                                    <th style="text-align:center;width: 6%">Size</th>
+                                    <th style="text-align:center;width: 6%">Open Time</th>
+                                    <th style="text-align:center;width: 6%">Open Price</th>
+                                    <th style="text-align:center;width: 6%">Close Time</th>
+                                    <th style="text-align:center;width: 6%">Close Price</th>
+                                    <th style="text-align:center;width: 4%">Swap</th>
+                                    <th style="text-align:center;width: 4%">Profit</th>
+                                    <th style="text-align:center;width: 4%">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="data in body_data" style="height: 40px;">
+                                        <td style="text-align:center;"></td>
+                                        <td style="text-align:center;">[[ data.id ]]</td>
+                                        <td style="text-align:center;">[[ data.transactionID ]]</td>
+                                        <td style="text-align:center;">[[ data.userId ]]</td>
+                                        <td style="text-align:center;">[[ data.symbol ]]</td>
+                                        <td style="text-align:center;">[[ data.timeFrame ]]</td>
+                                        <td style="text-align:center;">[[ data.orderType ]]</td>
+                                        <td style="text-align:center;">[[ data.lotSize ]]</td>
+                                        <td style="text-align:center;">[[ data.openTime ]]</td>
+                                        <td style="text-align:center;">[[ data.openPrice ]]</td>
+                                        <td style="text-align:center;">[[ data.closeTime ]]</td>
+                                        <td style="text-align:center;">[[ data.closePrice ]]</td>
+                                        <td style="text-align:center;">[[ data.swap ]]</td>
+                                        <td style="text-align:center;">[[ data.profit ]]</td>
+                                        <td style="text-align:center;">
+                                            <!--{% if userlevel < 2 %}
+                                            <a href="#" data-toggle="tooltip" title="Delete" class=""
+                                                    onclick="on_delete_access('[[ body_data.uid ]]', '[[ body_data.userId ]]')"><i
+                                                    class="fa fa-trash-o" aria-hidden="true" style="color: white"></i></a>
+                                            {% endif %}-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- jquery
+		============================================ -->
+{#<script src="{% static "js/vendor/jquery-1.11.3.min.js" %}"></script>#}
+<!-- bootstrap JS
+    ============================================ -->
+{#<script src="{% static "js/bootstrap.min.js" %}"></script>#}
+
+<!-- data table JS
+    ============================================ -->
+{#<script src="{% static "js/data-table/bootstrap-table.js" %}"></script>#}
+{#<script src="{% static "js/data-table/tableExport.js" %}"></script>#}
+{#<script src="{% static "js/data-table/data-table-active.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-editable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-editable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-resizable.js" %}"></script>#}
+{#<script src="{% static "js/data-table/colResizable-1.5.source.js" %}"></script>#}
+{#<script src="{% static "js/data-table/bootstrap-table-export.js" %}"></script>#}
+<!--  editable JS
+    ============================================ -->
+{#<script src="{% static "js/editable/jquery.mockjax.js" %}"></script>#}
+{#<script src="{% static "js/editable/mock-active.js" %}"></script>#}
+{#<script src="{% static "js/editable/select2.js" %}"></script>#}
+{#<script src="{% static "js/editable/moment.min.js" %}"></script>#}
+{#<script src="{% static "js/editable/bootstrap-datetimepicker.js" %}"></script>#}
+{#<script src="{% static "js/editable/bootstrap-editable.js" %}"></script>#}
+{#<script src="{% static "js/editable/xediable-active.js" %}"></script>#}
+
+<!-- bootstrap JS
+    ============================================ -->
+{#<script src="{% static "js/bootstrap.min.js" %}"></script>#}
+
+
+
+<script>
+var demotable_history_vue;
+var demobody_datahisotry = new Array();
+
+
+function refresh_demotraing_hisotry() {
+//setTimeout(function () {
+    // Do Something Here
+    var params = {
+        "trader" : $("#demoTraderListHistory").val()
+     };
+
+    $.ajax({
+            type: "GET",
+            url: "/broker/tradinghistory/get_demo_trading/",
+            data: params,
+            success: function(result){
+            result = JSON.parse(result);
+            var i;
+            demotable_history_vue.body_data = new Array();
+
+            for (i = 0; i < result.length; i++) {
+                demotable_history_vue.body_data[i] = result[i];
+            }
+      }});
+
+    //refresh_demotraing_hisotry();
+//}, 10000);
+
+}
+
+$(document).ready(function () {
+
+    {% for info in bodydata %}
+        demobody_datahisotry.push({"uid": "{{ info.uid }}", "id": "{{ info.id }}", "transactionID": "{{ info.transactionID }}", "userId": "{{ info.userId }}",
+                          "symbol": "{{ info.symbol }}", "timeFrame": "{{ info.timeFrame }}", "orderType": "{{ info.orderType }}",
+                          "lotSize": "{{ info.lotSize }}", "openPrice": "{{ info.openPrice }}", "closePrice": "{{ info.closePrice }}",
+                          "openTime": "{{ info.openTime }}", "closeTime": "{{ info.closeTime }}", "profit": "{{ info.profit }}", "swap": "{{ info.swap }}"});
+    {% endfor %}
+    demotable_history_vue = new Vue({
+        delimiters: ['[[', ']]'],
+
+        el: "#demotablehistory",
+
+        data: {
+            body_data: demobody_datahisotry,
+            user_level: {{ userlevel }},
+        },
+    });
+   // refresh_demotraing_hisotry();
+});
+</script>
