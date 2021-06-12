@@ -1,1 +1,5 @@
 # arbitrage-bot-service
+BINANCE AUTO-TRADE SERVICE, WE OFFER REAL TIME AUTOMATED TRADING OF CRYPTOCURRENCIES IN YOUR BINANCE ACCOUNT.
+
+## website
+http://aiarbitrage.club/
